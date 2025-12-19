@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bookit_dev
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  backend:
+    build: ./backend
+    command: npm run start:dev
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/bookit_dev?schema=public
+      JWT_SECRET: supersecretdev
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    command: npm run dev -- --host
+    working_dir: /usr/src/app
+    volumes:
+      - ./frontend:/usr/src/app
+    environment:
+      VITE_API_URL: http://localhost:3000
+    ports:
+      - '5173:5173'
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
