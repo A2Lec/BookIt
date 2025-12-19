@@ -34,64 +34,67 @@ export default function Resources() {
   }
 
   const statusColors: Record<string, string> = {
-    AVAILABLE: 'bg-green-100 text-green-800',
-    MAINTENANCE: 'bg-yellow-100 text-yellow-800',
-    OUT_OF_SERVICE: 'bg-red-100 text-red-800',
+    AVAILABLE: 'bg-cyan-neon bg-opacity-20 text-cyan-neon border border-cyan-neon border-opacity-30',
+    MAINTENANCE: 'bg-yellow-400 bg-opacity-20 text-yellow-400 border border-yellow-400 border-opacity-30',
+    OUT_OF_SERVICE: 'bg-rose-coral bg-opacity-20 text-rose-coral border border-rose-coral border-opacity-30',
   }
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">Ressources</h2>
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">Ressources</h2>
+          <p className="text-snow-white text-opacity-60 mt-1">Gérez vos ressources</p>
+        </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 font-semibold"
+          className={`px-6 py-3 rounded-xl font-semibold transition ${showForm ? 'bg-rose-coral bg-opacity-20 text-rose-coral border border-rose-coral border-opacity-30' : 'bg-indigo-royal text-snow-white hover:bg-opacity-90'}`}
         >
           {showForm ? '✖ Annuler' : '➕ Ajouter'}
         </button>
       </div>
 
       {showForm && (
-        <div className="bg-white p-6 rounded shadow mb-6">
-          <h3 className="font-bold text-lg mb-4">Ajouter une ressource</h3>
+        <div className="glass-card p-6 rounded-2xl border border-white border-opacity-10 mb-8">
+          <h3 className="font-bold text-lg text-snow-white mb-4">Ajouter une ressource</h3>
           <form onSubmit={handleAddResource} className="space-y-4">
             <input
-              className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
               placeholder="Nom de la ressource"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               required
             />
             <select
-              className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
             >
-              <option value="ROOM">Salle</option>
-              <option value="EQUIPMENT">Équipement</option>
-              <option value="VEHICLE">Véhicule</option>
-              <option value="WORKSTATION">Poste de travail</option>
+              <option value="ROOM" className="bg-midnight text-snow-white">🏢 Salle</option>
+              <option value="EQUIPMENT" className="bg-midnight text-snow-white">🔧 Équipement</option>
+              <option value="VEHICLE" className="bg-midnight text-snow-white">🚗 Véhicule</option>
+              <option value="WORKSTATION" className="bg-midnight text-snow-white">💼 Poste de travail</option>
             </select>
-            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 font-semibold">
+            <button type="submit" className="w-full bg-cyan-neon text-midnight py-3 rounded-xl hover:bg-opacity-90 font-semibold transition">
               Créer
             </button>
           </form>
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {resources.map((r) => (
-          <div key={r.id} className="bg-white p-4 rounded shadow hover:shadow-lg transition">
-            <div className="flex justify-between items-start mb-2">
-              <h3 className="font-bold text-lg">{r.name}</h3>
-              <span className={`px-2 py-1 rounded text-xs font-semibold ${statusColors[r.status]}`}>
+          <div key={r.id} className="glass-card p-6 rounded-2xl border border-white border-opacity-10 hover:border-opacity-30 transition">
+            <div className="flex justify-between items-start mb-3">
+              <h3 className="font-bold text-lg text-snow-white">{r.name}</h3>
+              <span className={`px-3 py-1 rounded-lg text-xs font-semibold ${statusColors[r.status]}`}>
                 {r.status === 'AVAILABLE' ? '✓ Libre' : r.status === 'MAINTENANCE' ? '⚙ Maintenance' : '✗ Indisponible'}
               </span>
             </div>
-            <p className="text-sm text-gray-600 mb-2">{categoryLabels[r.category]}</p>
-            {r.description && <p className="text-sm text-gray-500 mb-2">{r.description}</p>}
-            {r.capacity && <p className="text-sm text-gray-700">👥 Capacité: {r.capacity} personnes</p>}
-            {r.location && <p className="text-sm text-gray-700">📍 {r.location}</p>}
+            <p className="text-sm text-cyan-neon mb-2">{categoryLabels[r.category]}</p>
+            {r.description && <p className="text-sm text-snow-white text-opacity-70 mb-2">{r.description}</p>}
+            {r.capacity && <p className="text-sm text-snow-white text-opacity-70">👥 Capacité: {r.capacity} personnes</p>}
+            {r.location && <p className="text-sm text-snow-white text-opacity-70">📍 {r.location}</p>}
           </div>
         ))}
       </div>

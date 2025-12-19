@@ -38,15 +38,15 @@ export default function Notifications() {
   const getNotificationColor = (type: NotificationType) => {
     switch (type) {
       case 'BOOKING_CONFIRMED':
-        return 'border-green-200 bg-green-50'
+        return 'border-l-cyan-neon bg-cyan-neon bg-opacity-10'
       case 'BOOKING_CANCELLED':
-        return 'border-red-200 bg-red-50'
+        return 'border-l-rose-coral bg-rose-coral bg-opacity-10'
       case 'RESOURCE_AVAILABLE':
-        return 'border-purple-200 bg-purple-50'
+        return 'border-l-indigo-royal bg-indigo-royal bg-opacity-10'
       case 'REMINDER':
-        return 'border-yellow-200 bg-yellow-50'
+        return 'border-l-yellow-400 bg-yellow-400 bg-opacity-10'
       default:
-        return 'border-blue-200 bg-blue-50'
+        return 'border-l-indigo-royal bg-indigo-royal bg-opacity-10'
     }
   }
 
@@ -67,36 +67,39 @@ export default function Notifications() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">🔔 Notifications</h2>
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">🔔 Notifications</h2>
+          <p className="text-snow-white text-opacity-60 mt-2">Restez informé des mises à jour</p>
+        </div>
         {unreadCount > 0 && (
           <button
             onClick={markAllAsRead}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold transition"
+            className="px-6 py-3 bg-indigo-royal text-snow-white rounded-xl hover:bg-opacity-90 font-semibold transition"
           >
-            Marquer tout comme lu
+            Tout marquer comme lu
           </button>
         )}
       </div>
 
       {/* Filtres */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-3 mb-8">
         <button
           onClick={() => setFilter('all')}
-          className={`px-4 py-2 rounded font-semibold transition ${
+          className={`px-6 py-3 rounded-xl font-semibold transition ${
             filter === 'all'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+              ? 'bg-indigo-royal text-snow-white'
+              : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20 border border-white border-opacity-20'
           }`}
         >
           Toutes ({notifications.length})
         </button>
         <button
           onClick={() => setFilter('unread')}
-          className={`px-4 py-2 rounded font-semibold transition ${
+          className={`px-6 py-3 rounded-xl font-semibold transition ${
             filter === 'unread'
-              ? 'bg-blue-600 text-white'
-              : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+              ? 'bg-indigo-royal text-snow-white'
+              : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20 border border-white border-opacity-20'
           }`}
         >
           Non lues ({unreadCount})
@@ -105,43 +108,43 @@ export default function Notifications() {
 
       {/* Liste des notifications */}
       {filteredNotifications.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded shadow">
-          <p className="text-xl text-gray-500 mb-2">📭 Aucune notification</p>
-          <p className="text-gray-400">Vous êtes à jour !</p>
+        <div className="glass-card p-12 rounded-2xl border border-white border-opacity-10 text-center">
+          <p className="text-xl text-snow-white text-opacity-70 mb-2">📭 Aucune notification</p>
+          <p className="text-snow-white text-opacity-50">Vous êtes à jour !</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-4">
           {filteredNotifications.map((notification) => (
             <div
               key={notification.id}
-              className={`p-4 border-l-4 rounded shadow transition ${getNotificationColor(notification.type)} ${
-                !notification.isRead ? 'ring-2 ring-blue-300' : ''
+              className={`glass-card p-4 rounded-xl border-l-4 border-white border-opacity-10 hover:border-opacity-30 transition ${getNotificationColor(notification.type)} ${
+                !notification.isRead ? 'ring-2 ring-indigo-royal ring-opacity-30' : ''
               }`}
             >
-              <div className="flex justify-between items-start">
-                <div className="flex gap-3 flex-1">
-                  <span className="text-2xl">{getNotificationIcon(notification.type)}</span>
-                  <div className="flex-1">
-                    <p className={`text-sm ${!notification.isRead ? 'font-bold text-gray-800' : 'text-gray-700'}`}>
+              <div className="flex justify-between items-start gap-4">
+                <div className="flex gap-3 flex-1 min-w-0">
+                  <span className="text-2xl flex-shrink-0">{getNotificationIcon(notification.type)}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className={`text-sm ${!notification.isRead ? 'font-bold text-snow-white' : 'text-snow-white text-opacity-90'}`}>
                       {notification.message}
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-snow-white text-opacity-50 mt-1 font-mono">
                       {new Date(notification.createdAt).toLocaleString('fr-FR')}
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-2 ml-4">
+                <div className="flex gap-2 ml-4 flex-shrink-0">
                   {!notification.isRead && (
                     <button
                       onClick={() => markAsRead(notification.id)}
-                      className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition"
+                      className="text-xs px-3 py-1 bg-indigo-royal bg-opacity-20 text-indigo-royal rounded-lg hover:bg-opacity-30 transition border border-indigo-royal border-opacity-30"
                     >
                       Marquer comme lu
                     </button>
                   )}
                   <button
                     onClick={() => deleteNotification(notification.id)}
-                    className="text-xs px-2 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200 transition"
+                    className="text-xs px-3 py-1 bg-rose-coral bg-opacity-20 text-rose-coral rounded-lg hover:bg-opacity-30 transition border border-rose-coral border-opacity-30"
                   >
                     Supprimer
                   </button>

@@ -60,89 +60,94 @@ export default function Login() {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded shadow mt-8">
-      <div className="flex gap-4 mb-6">
-        <button
-          onClick={() => setTab('login')}
-          className={`flex-1 py-2 rounded font-semibold transition ${tab === 'login' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-        >
-          Connexion
-        </button>
-        <button
-          onClick={() => setTab('register')}
-          className={`flex-1 py-2 rounded font-semibold transition ${tab === 'register' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-        >
-          Inscription
-        </button>
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="glass-card p-8 rounded-2xl border border-white border-opacity-10 w-full max-w-md">
+        <h1 className="text-3xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-2 text-center">BookIt</h1>
+        <p className="text-center text-snow-white text-opacity-60 mb-8">Plateforme de réservation intelligente</p>
+
+        <div className="flex gap-3 mb-6">
+          <button
+            onClick={() => setTab('login')}
+            className={`flex-1 py-3 rounded-xl font-semibold transition ${tab === 'login' ? 'bg-indigo-royal text-snow-white' : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20'}`}
+          >
+            Connexion
+          </button>
+          <button
+            onClick={() => setTab('register')}
+            className={`flex-1 py-3 rounded-xl font-semibold transition ${tab === 'register' ? 'bg-indigo-royal text-snow-white' : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20'}`}
+          >
+            Inscription
+          </button>
+        </div>
+
+        {error && <div className="mb-4 p-3 bg-rose-coral bg-opacity-20 text-rose-coral rounded-xl border border-rose-coral border-opacity-30">{error}</div>}
+
+        {tab === 'login' && (
+          <form onSubmit={handleLogin} className="space-y-4">
+            <input
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              placeholder="Mot de passe"
+              value={password}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit" disabled={loading} className="w-full bg-indigo-royal text-snow-white px-4 py-3 rounded-xl hover:bg-opacity-90 disabled:opacity-50 font-semibold transition">
+              {loading ? '⏳ Connexion...' : 'Se connecter'}
+            </button>
+            <div className="text-sm text-snow-white text-opacity-70 mt-6 p-4 bg-white bg-opacity-5 rounded-xl border border-white border-opacity-10">
+              <p className="font-semibold mb-2 text-cyan-neon">Comptes de test:</p>
+              <p className="font-mono text-xs">admin@test.fr</p>
+              <p className="font-mono text-xs">manager@test.fr</p>
+              <p className="font-mono text-xs">user@test.fr</p>
+            </div>
+          </form>
+        )}
+
+        {tab === 'register' && (
+          <form onSubmit={handleRegister} className="space-y-4">
+            <input
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              placeholder="Prénom"
+              value={firstName}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
+            />
+            <input
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              placeholder="Nom"
+              value={lastName}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+            />
+            <input
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              placeholder="Mot de passe"
+              value={password}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit" disabled={loading} className="w-full bg-cyan-neon text-midnight px-4 py-3 rounded-xl hover:bg-opacity-90 disabled:opacity-50 font-semibold transition">
+              {loading ? '⏳ Inscription...' : "S'inscrire"}
+            </button>
+          </form>
+        )}
       </div>
-
-      {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{error}</div>}
-
-      {tab === 'login' && (
-        <form onSubmit={handleLogin} className="space-y-4">
-          <input
-            className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Email"
-            type="email"
-            value={email}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Mot de passe"
-            value={password}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading} className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50 font-semibold">
-            {loading ? '⏳ Connexion...' : 'Se connecter'}
-          </button>
-          <div className="text-sm text-gray-600 mt-4 p-3 bg-blue-50 rounded">
-            <p className="font-semibold mb-1">Comptes de test:</p>
-            <p>admin@test.fr</p>
-            <p>manager@test.fr</p>
-            <p>user@test.fr</p>
-          </div>
-        </form>
-      )}
-
-      {tab === 'register' && (
-        <form onSubmit={handleRegister} className="space-y-4">
-          <input
-            className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Prénom"
-            value={firstName}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
-          />
-          <input
-            className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Nom"
-            value={lastName}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
-          />
-          <input
-            className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Email"
-            type="email"
-            value={email}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Mot de passe"
-            value={password}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading} className="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 disabled:opacity-50 font-semibold">
-            {loading ? '⏳ Inscription...' : "S'inscrire"}
-          </button>
-        </form>
-      )}
     </div>
   )
 }
