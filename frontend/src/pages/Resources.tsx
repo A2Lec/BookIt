@@ -34,9 +34,9 @@ export default function Resources() {
   }
 
   const statusColors: Record<string, string> = {
-    AVAILABLE: 'bg-cyan-neon bg-opacity-20 text-cyan-neon border border-cyan-neon border-opacity-30',
-    MAINTENANCE: 'bg-yellow-400 bg-opacity-20 text-yellow-400 border border-yellow-400 border-opacity-30',
-    OUT_OF_SERVICE: 'bg-rose-coral bg-opacity-20 text-rose-coral border border-rose-coral border-opacity-30',
+    AVAILABLE: 'dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30',
+    MAINTENANCE: 'dark:bg-yellow-400 dark:bg-opacity-20 dark:text-yellow-400 dark:border dark:border-yellow-400 dark:border-opacity-30 bg-yellow-400 bg-opacity-20 text-yellow-400 border border-yellow-400 border-opacity-30',
+    OUT_OF_SERVICE: 'dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:border dark:border-rose-coral dark:border-opacity-30 bg-rose-coral bg-opacity-20 text-rose-coral border border-rose-coral border-opacity-30',
   }
 
   return (
@@ -44,38 +44,38 @@ export default function Resources() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">Ressources</h2>
-          <p className="text-snow-white text-opacity-60 mt-1">Gérez vos ressources</p>
+          <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-1">Gérez vos ressources</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className={`px-6 py-3 rounded-xl font-semibold transition ${showForm ? 'bg-rose-coral bg-opacity-20 text-rose-coral border border-rose-coral border-opacity-30' : 'bg-indigo-royal text-snow-white hover:bg-opacity-90'}`}
+          className={`px-6 py-3 rounded-xl font-semibold transition ${showForm ? 'dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300' : 'dark:bg-indigo-royal dark:text-snow-white dark:hover:bg-opacity-90 bg-indigo-royal text-white hover:opacity-90'}`}
         >
           {showForm ? '✖ Annuler' : '➕ Ajouter'}
         </button>
       </div>
 
       {showForm && (
-        <div className="glass-card p-6 rounded-2xl border border-white border-opacity-10 mb-8">
-          <h3 className="font-bold text-lg text-snow-white mb-4">Ajouter une ressource</h3>
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle mb-8">
+          <h3 className="font-bold text-lg dark:text-snow-white text-light-text mb-4">Ajouter une ressource</h3>
           <form onSubmit={handleAddResource} className="space-y-4">
             <input
-              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white placeholder-snow-white placeholder-opacity-50 focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              className="w-full px-4 py-3 rounded-xl dark:bg-white dark:bg-opacity-10 dark:border dark:border-white dark:border-opacity-20 dark:text-snow-white dark:placeholder-snow-white dark:placeholder-opacity-50 dark:focus:border-indigo-royal dark:focus:bg-opacity-15 bg-light-surface-alt border border-light-border text-light-text placeholder-light-text-secondary placeholder-opacity-60 focus:outline-none focus:border-cyan-light transition"
               placeholder="Nom de la ressource"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               required
             />
             <select
-              className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-snow-white focus:outline-none focus:border-indigo-royal focus:bg-opacity-15 transition"
+              className="w-full px-4 py-3 rounded-xl dark:bg-white dark:bg-opacity-10 dark:border dark:border-white dark:border-opacity-20 dark:text-snow-white dark:focus:border-indigo-royal dark:focus:bg-opacity-15 bg-light-surface-alt border border-light-border text-light-text focus:outline-none focus:border-cyan-light transition"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
             >
-              <option value="ROOM" className="bg-midnight text-snow-white">🏢 Salle</option>
-              <option value="EQUIPMENT" className="bg-midnight text-snow-white">🔧 Équipement</option>
-              <option value="VEHICLE" className="bg-midnight text-snow-white">🚗 Véhicule</option>
-              <option value="WORKSTATION" className="bg-midnight text-snow-white">💼 Poste de travail</option>
+              <option value="ROOM" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">🏢 Salle</option>
+              <option value="EQUIPMENT" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">🔧 Équipement</option>
+              <option value="VEHICLE" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">🚗 Véhicule</option>
+              <option value="WORKSTATION" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">💼 Poste de travail</option>
             </select>
-            <button type="submit" className="w-full bg-cyan-neon text-midnight py-3 rounded-xl hover:bg-opacity-90 font-semibold transition">
+            <button type="submit" className="w-full dark:bg-cyan-neon dark:text-midnight dark:hover:bg-opacity-90 bg-indigo-royal text-white hover:opacity-90 py-3 rounded-xl font-semibold transition">
               Créer
             </button>
           </form>
@@ -84,17 +84,17 @@ export default function Resources() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {resources.map((r) => (
-          <div key={r.id} className="glass-card p-6 rounded-2xl border border-white border-opacity-10 hover:border-opacity-30 transition">
+          <div key={r.id} className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
             <div className="flex justify-between items-start mb-3">
-              <h3 className="font-bold text-lg text-snow-white">{r.name}</h3>
+              <h3 className="font-bold text-lg dark:text-snow-white text-light-text">{r.name}</h3>
               <span className={`px-3 py-1 rounded-lg text-xs font-semibold ${statusColors[r.status]}`}>
                 {r.status === 'AVAILABLE' ? '✓ Libre' : r.status === 'MAINTENANCE' ? '⚙ Maintenance' : '✗ Indisponible'}
               </span>
             </div>
-            <p className="text-sm text-cyan-neon mb-2">{categoryLabels[r.category]}</p>
-            {r.description && <p className="text-sm text-snow-white text-opacity-70 mb-2">{r.description}</p>}
-            {r.capacity && <p className="text-sm text-snow-white text-opacity-70">👥 Capacité: {r.capacity} personnes</p>}
-            {r.location && <p className="text-sm text-snow-white text-opacity-70">📍 {r.location}</p>}
+            <p className="text-sm text-cyan-light dark:text-cyan-neon mb-2">{categoryLabels[r.category]}</p>
+            {r.description && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary mb-2">{r.description}</p>}
+            {r.capacity && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary">👥 Capacité: {r.capacity} personnes</p>}
+            {r.location && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary">📍 {r.location}</p>}
           </div>
         ))}
       </div>

@@ -83,21 +83,21 @@ export default function Calendar() {
     <div>
       <div className="mb-8">
         <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">Calendrier 📅</h2>
-        <p className="text-snow-white text-opacity-60 mt-2">Sélectionnez un jour pour créer une réservation</p>
+        <p className="dark:text-snow-white dark:text-opacity-60 text-light-text text-opacity-70 mt-2">Sélectionnez un jour pour créer une réservation</p>
       </div>
 
-      <div className="glass-card p-6 rounded-2xl border border-white border-opacity-10 mb-8">
+      <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border mb-8">
         <div className="flex justify-between items-center mb-6">
           <button
             onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))}
-            className="px-4 py-2 bg-white bg-opacity-10 text-snow-white rounded-lg hover:bg-opacity-20 font-semibold transition"
+            className="px-4 py-2 dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 bg-light-border text-light-text hover:opacity-80 rounded-lg font-semibold transition"
           >
             ← Précédent
           </button>
-          <h3 className="text-2xl font-bold text-snow-white capitalize">{monthName}</h3>
+          <h3 className="text-2xl font-bold dark:text-snow-white text-light-text capitalize">{monthName}</h3>
           <button
             onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))}
-            className="px-4 py-2 bg-white bg-opacity-10 text-snow-white rounded-lg hover:bg-opacity-20 font-semibold transition"
+            className="px-4 py-2 dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 bg-light-border text-light-text hover:opacity-80 rounded-lg font-semibold transition"
           >
             Suivant →
           </button>
@@ -105,7 +105,7 @@ export default function Calendar() {
 
         <div className="grid grid-cols-7 gap-2 mb-6">
           {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((d) => (
-            <div key={d} className="font-bold text-center py-2 text-snow-white text-opacity-60">
+            <div key={d} className="font-bold text-center py-2 dark:text-snow-white dark:text-opacity-60 text-light-text-secondary">
               {d}
             </div>
           ))}
@@ -120,19 +120,19 @@ export default function Calendar() {
                 onClick={() => day && handleDateClick(day)}
                 className={`min-h-24 p-2 border rounded-lg cursor-pointer transition ${
                   day
-                    ? `${isToday ? 'bg-indigo-royal bg-opacity-20 border-indigo-royal border-opacity-50' : 'bg-white bg-opacity-5 border-white border-opacity-10 hover:bg-opacity-10'}`
+                    ? `${isToday ? 'dark:bg-indigo-royal dark:bg-opacity-20 dark:border-indigo-royal dark:border-opacity-50 bg-indigo-royal bg-opacity-10 border-indigo-royal border-opacity-40' : 'dark:bg-white dark:bg-opacity-5 dark:border-white dark:border-opacity-10 dark:hover:bg-opacity-10 bg-light-surface-alt border-light-border-subtle hover:border-cyan-light'}`
                     : 'bg-transparent border-transparent'
                 }`}
               >
                 {day && (
                   <>
-                    <div className={`font-bold mb-1 ${isToday ? 'text-indigo-royal' : 'text-snow-white'}`}>{day.getDate()}</div>
+                    <div className={`font-bold mb-1 ${isToday ? 'text-indigo-royal' : 'dark:text-snow-white text-light-text'}`}>{day.getDate()}</div>
                     {dayBookings.slice(0, 2).map((b) => (
-                      <div key={b.id} className="text-xs bg-cyan-neon bg-opacity-20 text-cyan-neon p-1 rounded mb-1 truncate border border-cyan-neon border-opacity-30">
+                      <div key={b.id} className="text-xs dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30 p-1 rounded mb-1 truncate">
                         {b.title}
                       </div>
                     ))}
-                    {dayBookings.length > 2 && <div className="text-xs text-snow-white text-opacity-50">+{dayBookings.length - 2}</div>}
+                    {dayBookings.length > 2 && <div className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary">+{dayBookings.length - 2}</div>}
                   </>
                 )}
               </div>
@@ -142,11 +142,11 @@ export default function Calendar() {
       </div>
 
       {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 px-4">
-          <div className="glass-card p-8 rounded-2xl border border-white border-opacity-10 max-w-md w-full">
-            <h3 className="text-2xl font-bold text-snow-white mb-4">Créer une réservation</h3>
+        <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-center justify-center z-50 px-4">
+          <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft max-w-md w-full">
+            <h3 className="text-2xl font-bold dark:text-snow-white text-light-text mb-4">Créer une réservation</h3>
 
-            {error && <div className="mb-4 p-3 bg-rose-coral bg-opacity-20 text-rose-coral rounded-lg border border-rose-coral border-opacity-30">{error}</div>}
+            {error && <div className="mb-4 p-3 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 rounded-lg">{error}</div>}
 
             <form onSubmit={handleCreateBooking} className="space-y-4">
               <div>

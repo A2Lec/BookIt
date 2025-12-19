@@ -38,15 +38,15 @@ export default function Notifications() {
   const getNotificationColor = (type: NotificationType) => {
     switch (type) {
       case 'BOOKING_CONFIRMED':
-        return 'border-l-cyan-neon bg-cyan-neon bg-opacity-10'
+        return 'dark:border-l-cyan-neon dark:bg-cyan-neon dark:bg-opacity-10 border-l-cyan-light bg-cyan-light bg-opacity-10'
       case 'BOOKING_CANCELLED':
-        return 'border-l-rose-coral bg-rose-coral bg-opacity-10'
+        return 'dark:border-l-rose-coral dark:bg-rose-coral dark:bg-opacity-10 border-l-rose-coral bg-rose-coral bg-opacity-10'
       case 'RESOURCE_AVAILABLE':
-        return 'border-l-indigo-royal bg-indigo-royal bg-opacity-10'
+        return 'dark:border-l-indigo-royal dark:bg-indigo-royal dark:bg-opacity-10 border-l-indigo-royal bg-indigo-royal bg-opacity-10'
       case 'REMINDER':
-        return 'border-l-yellow-400 bg-yellow-400 bg-opacity-10'
+        return 'dark:border-l-yellow-400 dark:bg-yellow-400 dark:bg-opacity-10 border-l-yellow-400 bg-yellow-400 bg-opacity-10'
       default:
-        return 'border-l-indigo-royal bg-indigo-royal bg-opacity-10'
+        return 'dark:border-l-indigo-royal dark:bg-indigo-royal dark:bg-opacity-10 border-l-indigo-royal bg-indigo-royal bg-opacity-10'
     }
   }
 
@@ -70,12 +70,12 @@ export default function Notifications() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">🔔 Notifications</h2>
-          <p className="text-snow-white text-opacity-60 mt-2">Restez informé des mises à jour</p>
+          <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-2">Restez informé des mises à jour</p>
         </div>
         {unreadCount > 0 && (
           <button
             onClick={markAllAsRead}
-            className="px-6 py-3 bg-indigo-royal text-snow-white rounded-xl hover:bg-opacity-90 font-semibold transition"
+            className="px-6 py-3 dark:bg-indigo-royal dark:text-snow-white dark:hover:bg-opacity-90 bg-indigo-royal text-white hover:opacity-90 rounded-xl font-semibold transition"
           >
             Tout marquer comme lu
           </button>
@@ -88,8 +88,8 @@ export default function Notifications() {
           onClick={() => setFilter('all')}
           className={`px-6 py-3 rounded-xl font-semibold transition ${
             filter === 'all'
-              ? 'bg-indigo-royal text-snow-white'
-              : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20 border border-white border-opacity-20'
+              ? 'dark:bg-indigo-royal dark:text-snow-white bg-indigo-royal text-white'
+              : 'dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 dark:border dark:border-white dark:border-opacity-20 bg-light-border text-light-text hover:opacity-80'
           }`}
         >
           Toutes ({notifications.length})
@@ -98,8 +98,8 @@ export default function Notifications() {
           onClick={() => setFilter('unread')}
           className={`px-6 py-3 rounded-xl font-semibold transition ${
             filter === 'unread'
-              ? 'bg-indigo-royal text-snow-white'
-              : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20 border border-white border-opacity-20'
+              ? 'dark:bg-indigo-royal dark:text-snow-white bg-indigo-royal text-white'
+              : 'dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 dark:border dark:border-white dark:border-opacity-20 bg-light-border text-light-text hover:opacity-80'
           }`}
         >
           Non lues ({unreadCount})
@@ -108,27 +108,27 @@ export default function Notifications() {
 
       {/* Liste des notifications */}
       {filteredNotifications.length === 0 ? (
-        <div className="glass-card p-12 rounded-2xl border border-white border-opacity-10 text-center">
-          <p className="text-xl text-snow-white text-opacity-70 mb-2">📭 Aucune notification</p>
-          <p className="text-snow-white text-opacity-50">Vous êtes à jour !</p>
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-12 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle text-center">
+          <p className="text-xl dark:text-snow-white dark:text-opacity-70 text-light-text mb-2">📭 Aucune notification</p>
+          <p className="dark:text-snow-white dark:text-opacity-50 text-light-text-secondary">Vous êtes à jour !</p>
         </div>
       ) : (
         <div className="space-y-4">
           {filteredNotifications.map((notification) => (
             <div
               key={notification.id}
-              className={`glass-card p-4 rounded-xl border-l-4 border-white border-opacity-10 hover:border-opacity-30 transition ${getNotificationColor(notification.type)} ${
-                !notification.isRead ? 'ring-2 ring-indigo-royal ring-opacity-30' : ''
+              className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border-l-4 dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 dark:rounded-xl dark:transition p-4 rounded-xl border-l-4 border-light-border bg-light-surface shadow-subtle hover:shadow-soft transition ${getNotificationColor(notification.type)} ${
+                !notification.isRead ? 'dark:ring-2 dark:ring-indigo-royal dark:ring-opacity-30 ring-2 ring-indigo-royal ring-opacity-20' : ''
               }`}
             >
               <div className="flex justify-between items-start gap-4">
                 <div className="flex gap-3 flex-1 min-w-0">
                   <span className="text-2xl flex-shrink-0">{getNotificationIcon(notification.type)}</span>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm ${!notification.isRead ? 'font-bold text-snow-white' : 'text-snow-white text-opacity-90'}`}>
+                    <p className={`text-sm ${!notification.isRead ? 'dark:font-bold dark:text-snow-white font-bold text-light-text' : 'dark:text-snow-white dark:text-opacity-90 text-light-text text-opacity-90'}`}>
                       {notification.message}
                     </p>
-                    <p className="text-xs text-snow-white text-opacity-50 mt-1 font-mono">
+                    <p className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary mt-1 font-mono">
                       {new Date(notification.createdAt).toLocaleString('fr-FR')}
                     </p>
                   </div>
@@ -137,14 +137,14 @@ export default function Notifications() {
                   {!notification.isRead && (
                     <button
                       onClick={() => markAsRead(notification.id)}
-                      className="text-xs px-3 py-1 bg-indigo-royal bg-opacity-20 text-indigo-royal rounded-lg hover:bg-opacity-30 transition border border-indigo-royal border-opacity-30"
+                      className="text-xs px-3 py-1 dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:hover:bg-opacity-30 dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30 rounded-lg hover:opacity-80 transition"
                     >
                       Marquer comme lu
                     </button>
                   )}
                   <button
                     onClick={() => deleteNotification(notification.id)}
-                    className="text-xs px-3 py-1 bg-rose-coral bg-opacity-20 text-rose-coral rounded-lg hover:bg-opacity-30 transition border border-rose-coral border-opacity-30"
+                    className="text-xs px-3 py-1 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:hover:bg-opacity-30 dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:opacity-80 transition"
                   >
                     Supprimer
                   </button>

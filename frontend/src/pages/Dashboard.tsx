@@ -18,35 +18,35 @@ export default function Dashboard() {
         <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-2">
           Bienvenue, {user?.name} 👋
         </h2>
-        <p className="text-snow-white text-opacity-60">Gérez vos réservations et ressources</p>
+        <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary">Gérez vos réservations et ressources</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="glass-card p-6 rounded-2xl border border-indigo-royal border-opacity-20 hover:border-opacity-40 transition">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-indigo-royal dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-snow-white text-opacity-70 text-sm font-semibold">Réservations du jour</p>
+              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-sm font-semibold">Réservations du jour</p>
               <p className="text-4xl font-black text-indigo-royal mt-2">{bookings.length}</p>
             </div>
             <span className="text-5xl opacity-20">📅</span>
           </div>
         </div>
 
-        <div className="glass-card p-6 rounded-2xl border border-cyan-neon border-opacity-20 hover:border-opacity-40 transition">
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-cyan-neon dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-snow-white text-opacity-70 text-sm font-semibold">Ressources occupées</p>
-              <p className="text-4xl font-black text-cyan-neon mt-2">{occupiedCount}</p>
+              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-sm font-semibold">Ressources occupées</p>
+              <p className="text-4xl font-black text-cyan-light mt-2">{occupiedCount}</p>
             </div>
             <span className="text-5xl opacity-20">🔴</span>
           </div>
         </div>
 
-        <div className="glass-card p-6 rounded-2xl border border-rose-coral border-opacity-20 hover:border-opacity-40 transition">
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-rose-coral dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-snow-white text-opacity-70 text-sm font-semibold">Disponibles</p>
+              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-sm font-semibold">Disponibles</p>
               <p className="text-4xl font-black text-rose-coral mt-2">{resources.length - occupiedCount}</p>
             </div>
             <span className="text-5xl opacity-20">✅</span>
@@ -57,17 +57,17 @@ export default function Dashboard() {
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Today's Bookings */}
-        <div className="glass-card p-6 rounded-2xl border border-white border-opacity-10">
-          <h3 className="text-xl font-bold text-snow-white mb-4">📅 Réservations du jour</h3>
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle">
+          <h3 className="text-xl font-bold dark:text-snow-white text-light-text mb-4">📅 Réservations du jour</h3>
           {bookings.length > 0 ? (
             <ul className="space-y-3">
               {bookings.map((b) => {
                 const resource = resources.find((r) => r.id === b.resourceId)
                 return (
-                  <li key={b.id} className="p-4 rounded-xl bg-white bg-opacity-5 border border-white border-opacity-10 hover:border-indigo-royal hover:border-opacity-30 transition">
-                    <p className="font-semibold text-snow-white">{b.title}</p>
-                    <p className="text-sm text-cyan-neon">{resource?.name}</p>
-                    <p className="text-xs text-snow-white text-opacity-50 font-mono mt-1">
+                  <li key={b.id} className="p-4 rounded-xl dark:bg-white dark:bg-opacity-5 dark:border dark:border-white dark:border-opacity-10 dark:hover:border-indigo-royal dark:hover:border-opacity-30 bg-light-surface-alt border border-light-border-subtle hover:border-cyan-light hover:shadow-subtle transition">
+                    <p className="font-semibold dark:text-snow-white text-light-text">{b.title}</p>
+                    <p className="text-sm text-cyan-light">{resource?.name}</p>
+                    <p className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary font-mono mt-1">
                       {new Date(b.startTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })} -{' '}
                       {new Date(b.endTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })}
                     </p>
@@ -76,27 +76,27 @@ export default function Dashboard() {
               })}
             </ul>
           ) : (
-            <p className="text-gray-500">Aucune réservation aujourd'hui</p>
+            <p className="dark:text-gray-500 text-light-text-secondary">Aucune réservation aujourd'hui</p>
           )}
         </div>
 
-        <div className="glass-card p-6 rounded-2xl border border-white border-opacity-10">
-          <h3 className="text-xl font-bold text-snow-white mb-4">🎯 Mes réservations (7 prochains jours)</h3>
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle">
+          <h3 className="text-xl font-bold dark:text-snow-white text-light-text mb-4">🎯 Mes réservations (7 prochains jours)</h3>
           {allBookings.length > 0 ? (
             <ul className="space-y-3">
               {allBookings.slice(0, 5).map((b) => {
                 const resource = resources.find((r) => r.id === b.resourceId)
                 return (
-                  <li key={b.id} className="p-4 rounded-xl bg-white bg-opacity-5 border-l-4 border-indigo-royal hover:border-opacity-40 transition">
-                    <p className="font-semibold text-snow-white">{b.title}</p>
-                    <p className="text-sm text-cyan-neon">{resource?.name}</p>
-                    <p className="text-xs text-snow-white text-opacity-50 font-mono mt-1">{new Date(b.startTime).toLocaleDateString('fr')}</p>
+                  <li key={b.id} className="p-4 rounded-xl dark:bg-white dark:bg-opacity-5 dark:border-l-4 dark:border-indigo-royal dark:hover:border-opacity-40 bg-light-surface-alt border-l-4 border-cyan-light hover:shadow-subtle transition">
+                    <p className="font-semibold dark:text-snow-white text-light-text">{b.title}</p>
+                    <p className="text-sm text-cyan-light">{resource?.name}</p>
+                    <p className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary font-mono mt-1">{new Date(b.startTime).toLocaleDateString('fr')}</p>
                   </li>
                 )
               })}
             </ul>
           ) : (
-            <p className="text-snow-white text-opacity-50">Aucune réservation</p>
+            <p className="dark:text-snow-white dark:text-opacity-50 text-light-text-secondary">Aucune réservation</p>
           )}
         </div>
       </div>

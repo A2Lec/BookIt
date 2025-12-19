@@ -15,7 +15,7 @@ export default function MyBookings() {
     <div>
       <div className="mb-8">
         <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">Mes réservations</h2>
-        <p className="text-snow-white text-opacity-60 mt-2">Gérez vos réservations</p>
+        <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-2">Gérez vos réservations</p>
       </div>
 
       {bookings.length > 0 ? (
@@ -23,27 +23,27 @@ export default function MyBookings() {
           {bookings.map((b) => {
             const resource = resources.find((r) => r.id === b.resourceId)
             return (
-              <div key={b.id} className="glass-card p-6 rounded-2xl border border-white border-opacity-10 hover:border-opacity-30 transition">
+              <div key={b.id} className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="font-bold text-xl text-snow-white">{b.title}</h3>
-                    <p className="text-cyan-neon mt-1">
+                    <h3 className="font-bold text-xl dark:text-snow-white text-light-text">{b.title}</h3>
+                    <p className="text-cyan-light dark:text-cyan-neon mt-1">
                       <span className="font-semibold">{resource?.name}</span>
                     </p>
                   </div>
-                  <span className={`px-3 py-1 rounded-lg font-semibold text-sm ${b.status === 'CONFIRMED' ? 'bg-cyan-neon bg-opacity-20 text-cyan-neon border border-cyan-neon border-opacity-30' : 'bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30'}`}>
+                  <span className={`px-3 py-1 rounded-lg font-semibold text-sm ${b.status === 'CONFIRMED' ? 'dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30' : 'dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30'}`}>
                     {b.status === 'CONFIRMED' ? '✓ Confirmée' : '⏳ En attente'}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div>
-                    <p className="text-xs text-snow-white text-opacity-60 uppercase">Début</p>
-                    <p className="font-semibold text-snow-white font-mono">{new Date(b.startTime).toLocaleString('fr')}</p>
+                    <p className="text-xs dark:text-snow-white dark:text-opacity-60 text-light-text-secondary uppercase">Début</p>
+                    <p className="font-semibold dark:text-snow-white text-light-text font-mono">{new Date(b.startTime).toLocaleString('fr')}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-snow-white text-opacity-60 uppercase">Fin</p>
-                    <p className="font-semibold text-snow-white font-mono">{new Date(b.endTime).toLocaleString('fr')}</p>
+                    <p className="text-xs dark:text-snow-white dark:text-opacity-60 text-light-text-secondary uppercase">Fin</p>
+                    <p className="font-semibold dark:text-snow-white text-light-text font-mono">{new Date(b.endTime).toLocaleString('fr')}</p>
                   </div>
                 </div>
 
@@ -53,7 +53,7 @@ export default function MyBookings() {
                       removeBooking(b.id)
                     }
                   }}
-                  className="w-full bg-rose-coral bg-opacity-20 text-rose-coral px-4 py-3 rounded-xl hover:bg-opacity-30 font-semibold transition border border-rose-coral border-opacity-30"
+                  className="w-full dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:hover:bg-opacity-30 dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 px-4 py-3 rounded-xl hover:opacity-80 font-semibold transition"
                 >
                   ✗ Annuler
                 </button>
