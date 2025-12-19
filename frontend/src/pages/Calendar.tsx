@@ -13,7 +13,9 @@ export default function Calendar() {
 
   const [currentDate, setCurrentDate] = useState(new Date())
   const [showForm, setShowForm] = useState(false)
+  const [isClosingForm, setIsClosingForm] = useState(false)
   const [showDayDetail, setShowDayDetail] = useState(false)
+  const [isClosingDayDetail, setIsClosingDayDetail] = useState(false)
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [error, setError] = useState('')
 
@@ -46,6 +48,22 @@ export default function Calendar() {
   function openAddForm() {
     setShowForm(true)
     setShowDayDetail(false)
+  }
+
+  function handleCloseDayDetail() {
+    setIsClosingDayDetail(true)
+    setTimeout(() => {
+      setShowDayDetail(false)
+      setIsClosingDayDetail(false)
+    }, 150)
+  }
+
+  function handleCloseForm() {
+    setIsClosingForm(true)
+    setTimeout(() => {
+      setShowForm(false)
+      setIsClosingForm(false)
+    }, 150)
   }
 
   function handleCreateBooking(e: React.FormEvent) {
@@ -182,8 +200,8 @@ export default function Calendar() {
 
       {/* Day Detail View */}
       {showDayDetail && selectedDate && (
-        <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0">
-          <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-2xl max-h-[85vh] overflow-y-auto">
+        <div className={`fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0 ${isClosingDayDetail ? 'modal-backdrop-exit' : 'modal-backdrop-enter'}`}>
+          <div className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-2xl max-h-[85vh] overflow-y-auto ${isClosingDayDetail ? 'modal-content-exit' : 'modal-content-enter'}`}>
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h3 className="text-2xl md:text-3xl font-bold dark:text-snow-white text-light-text">
@@ -192,7 +210,7 @@ export default function Calendar() {
                 <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-1">{dayBookings.length} réservation{dayBookings.length !== 1 ? 's' : ''}</p>
               </div>
               <button
-                onClick={() => setShowDayDetail(false)}
+                onClick={handleCloseDayDetail}
                 className="text-2xl dark:text-snow-white text-light-text hover:opacity-70 transition"
               >
                 ✕
@@ -253,8 +271,8 @@ export default function Calendar() {
 
       {/* Add Booking Form */}
       {showForm && selectedDate && (
-        <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0">
-          <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-md max-h-[90vh] overflow-y-auto">
+        <div className={`fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0 ${isClosingForm ? 'modal-backdrop-exit' : 'modal-backdrop-enter'}`}>
+          <div className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-md max-h-[90vh] overflow-y-auto ${isClosingForm ? 'modal-content-exit' : 'modal-content-enter'}`}>
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h3 className="text-2xl font-bold dark:text-snow-white text-light-text">Nouvelle réservation</h3>
@@ -264,7 +282,7 @@ export default function Calendar() {
                 </p>
               </div>
               <button
-                onClick={() => setShowForm(false)}
+                onClick={handleCloseForm}
                 className="text-2xl dark:text-snow-white text-light-text hover:opacity-70 transition"
               >
                 ✕

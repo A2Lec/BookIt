@@ -10,8 +10,36 @@ export default function Dashboard() {
   const allBookings = useBookingsStore((state) => state.bookings)
   const resources = useResourcesStore((state) => state.resources)
 
+  const [showTodayModal, setShowTodayModal] = useState(false)
   const [showOccupiedModal, setShowOccupiedModal] = useState(false)
   const [showAvailableModal, setShowAvailableModal] = useState(false)
+  const [isClosingToday, setIsClosingToday] = useState(false)
+  const [isClosingOccupied, setIsClosingOccupied] = useState(false)
+  const [isClosingAvailable, setIsClosingAvailable] = useState(false)
+
+  const handleCloseTodayModal = () => {
+    setIsClosingToday(true)
+    setTimeout(() => {
+      setShowTodayModal(false)
+      setIsClosingToday(false)
+    }, 200)
+  }
+
+  const handleCloseOccupiedModal = () => {
+    setIsClosingOccupied(true)
+    setTimeout(() => {
+      setShowOccupiedModal(false)
+      setIsClosingOccupied(false)
+    }, 200)
+  }
+
+  const handleCloseAvailableModal = () => {
+    setIsClosingAvailable(true)
+    setTimeout(() => {
+      setShowAvailableModal(false)
+      setIsClosingAvailable(false)
+    }, 200)
+  }
 
   const occupiedResourceIds = new Set(bookings.map((b) => b.resourceId))
   const occupiedResources = Array.from(occupiedResourceIds).map((id) => resources.find((r) => r.id === id)).filter(Boolean)
@@ -29,7 +57,10 @@ export default function Dashboard() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-indigo-royal dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
+        <button
+          onClick={() => setShowTodayModal(true)}
+          className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-indigo-royal dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition cursor-pointer text-left"
+        >
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
               <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Réservations du jour</p>
@@ -37,7 +68,7 @@ export default function Dashboard() {
             </div>
             <Calendar className="w-10 h-10 md:w-12 md:h-12 opacity-20 flex-shrink-0 text-indigo-royal" />
           </div>
-        </div>
+        </button>
 
         <button
           onClick={() => setShowOccupiedModal(true)}
@@ -119,17 +150,64 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* Today's Bookings Modal */}
+      {showTodayModal && (
+        <div className={`fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0 ${isClosingToday ? 'modal-backdrop-exit' : 'modal-backdrop-enter'}`}>
+          <div className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-2xl max-h-[85vh] overflow-y-auto ${isClosingToday ? 'modal-content-exit' : 'modal-content-enter'}`}>
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold dark:text-snow-white text-light-text">Réservations du jour</h3>
+                <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-1">{bookings.length} réservation{bookings.length !== 1 ? 's' : ''}</p>
+              </div>
+              <button
+                onClick={handleCloseTodayModal}
+                className="text-2xl dark:text-snow-white text-light-text hover:opacity-70 transition"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {bookings.length > 0 ? (
+                bookings.map((booking, index) => {
+                  const resource = resources.find((r) => r.id === booking.resourceId)
+                  return (
+                    <div key={booking.id} className="dark:bg-indigo-royal dark:bg-opacity-5 dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-5 border border-indigo-royal border-opacity-30 p-4 rounded-xl modal-card-enter" style={{animationDelay: `${index * 50}ms`}}>
+                      <div className="flex items-start justify-between mb-2">
+                        <h4 className="font-bold dark:text-snow-white text-light-text">{booking.title}</h4>
+                        <span className="text-xs px-2 py-1 dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal bg-indigo-royal bg-opacity-20 text-indigo-royal rounded-full flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />
+                          Confirmée
+                        </span>
+                      </div>
+                      <p className="text-sm dark:text-cyan-neon text-cyan-light font-semibold">{resource?.name}</p>
+                      <p className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary font-mono mt-2">
+                        {new Date(booking.startTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })} - {new Date(booking.endTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })}
+                      </p>
+                    </div>
+                  )
+                })
+              ) : (
+                <div className="dark:bg-white dark:bg-opacity-5 bg-light-surface-alt p-8 rounded-xl text-center">
+                  <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary">Aucune réservation aujourd'hui</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Occupied Resources Modal */}
       {showOccupiedModal && (
-        <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0">
-          <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-2xl max-h-[85vh] overflow-y-auto">
+        <div className={`fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0 ${isClosingOccupied ? 'modal-backdrop-exit' : 'modal-backdrop-enter'}`}>
+          <div className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-2xl max-h-[85vh] overflow-y-auto ${isClosingOccupied ? 'modal-content-exit' : 'modal-content-enter'}`}>
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h3 className="text-2xl md:text-3xl font-bold dark:text-snow-white text-light-text">Ressources occupées</h3>
                 <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-1">{occupiedCount} ressource{occupiedCount !== 1 ? 's' : ''} en utilisation</p>
               </div>
               <button
-                onClick={() => setShowOccupiedModal(false)}
+                onClick={handleCloseOccupiedModal}
                 className="text-2xl dark:text-snow-white text-light-text hover:opacity-70 transition"
               >
                 ✕
@@ -138,10 +216,10 @@ export default function Dashboard() {
 
             <div className="space-y-4">
               {occupiedResources.length > 0 ? (
-                occupiedResources.map((resource) => {
-                  const resourceBookings = bookings.filter((b) => b.resourceId === resource?.id)
+                occupiedResources.map((resource, index) => {
+                  const resourceBookings = allBookings.filter((b) => b.resourceId === resource?.id && b.status !== 'CANCELLED')
                   return (
-                    <div key={resource?.id} className="dark:bg-cyan-neon dark:bg-opacity-5 dark:border dark:border-cyan-neon dark:border-opacity-20 bg-cyan-light bg-opacity-5 border border-cyan-light border-opacity-30 p-4 rounded-xl">
+                    <div key={resource?.id} className="dark:bg-rose-coral dark:bg-opacity-5 dark:border dark:border-rose-coral dark:border-opacity-20 bg-rose-coral bg-opacity-5 border border-rose-coral border-opacity-20 p-4 rounded-xl modal-card-enter" style={{animationDelay: `${index * 50}ms`}}>
                       <h4 className="font-bold dark:text-snow-white text-light-text mb-3">{resource?.name}</h4>
                       <div className="space-y-3">
                         {resourceBookings.map((booking) => (
@@ -174,15 +252,15 @@ export default function Dashboard() {
 
       {/* Available Resources Modal */}
       {showAvailableModal && (
-        <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0">
-          <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-2xl max-h-[85vh] overflow-y-auto">
+        <div className={`fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0 ${isClosingAvailable ? 'modal-backdrop-exit' : 'modal-backdrop-enter'}`}>
+          <div className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-2xl max-h-[85vh] overflow-y-auto ${isClosingAvailable ? 'modal-content-exit' : 'modal-content-enter'}`}>
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h3 className="text-2xl md:text-3xl font-bold dark:text-snow-white text-light-text">Ressources disponibles</h3>
                 <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-1">{availableResources.length} ressource{availableResources.length !== 1 ? 's' : ''} libre{availableResources.length !== 1 ? 's' : ''}</p>
               </div>
               <button
-                onClick={() => setShowAvailableModal(false)}
+                onClick={handleCloseAvailableModal}
                 className="text-2xl dark:text-snow-white text-light-text hover:opacity-70 transition"
               >
                 ✕
@@ -191,8 +269,8 @@ export default function Dashboard() {
 
             <div className="space-y-3">
               {availableResources.length > 0 ? (
-                availableResources.map((resource) => (
-                  <div key={resource.id} className="dark:bg-teal-soft dark:bg-opacity-5 dark:border dark:border-teal-soft dark:border-opacity-20 bg-cyan-light bg-opacity-5 border border-cyan-light border-opacity-30 p-4 rounded-xl">
+                availableResources.map((resource, index) => (
+                  <div key={resource.id} className="dark:bg-teal-soft dark:bg-opacity-5 dark:border dark:border-teal-soft dark:border-opacity-20 bg-cyan-light bg-opacity-5 border border-cyan-light border-opacity-30 p-4 rounded-xl modal-card-enter" style={{animationDelay: `${index * 50}ms`}}>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <h4 className="font-bold dark:text-snow-white text-light-text">{resource.name}</h4>
