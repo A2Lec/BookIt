@@ -40,27 +40,27 @@ export default function Dashboard() {
 
         <button
           onClick={() => setShowOccupiedModal(true)}
-          className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-cyan-neon dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition cursor-pointer text-left"
+          className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-rose-coral dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-rose-coral transition cursor-pointer text-left"
         >
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
               <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Ressources occupées</p>
-              <p className="text-2xl md:text-4xl font-black text-cyan-light mt-2">{occupiedCount}</p>
+              <p className="text-2xl md:text-4xl font-black text-rose-coral mt-2">{occupiedCount}</p>
             </div>
-            <span className="text-3xl md:text-5xl opacity-20 flex-shrink-0">🔴</span>
+            <span className="text-3xl md:text-5xl opacity-30 flex-shrink-0">🔴</span>
           </div>
         </button>
 
         <button
           onClick={() => setShowAvailableModal(true)}
-          className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-rose-coral dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition cursor-pointer text-left"
+          className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-cyan-neon dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition cursor-pointer text-left"
         >
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
               <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Disponibles</p>
-              <p className="text-2xl md:text-4xl font-black text-rose-coral mt-2">{resources.length - occupiedCount}</p>
+              <p className="text-2xl md:text-4xl font-black text-cyan-light mt-2">{resources.length - occupiedCount}</p>
             </div>
-            <span className="text-3xl md:text-5xl opacity-20 flex-shrink-0">✅</span>
+            <span className="text-3xl md:text-5xl opacity-30 flex-shrink-0">✅</span>
           </div>
         </button>
       </div>
