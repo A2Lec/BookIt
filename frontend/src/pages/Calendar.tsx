@@ -103,9 +103,9 @@ export default function Calendar() {
           </button>
         </div>
 
-        <div className="grid grid-cols-7 gap-2 mb-6">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 mb-6">
           {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((d) => (
-            <div key={d} className="font-bold text-center py-2 dark:text-snow-white dark:text-opacity-60 text-light-text-secondary">
+            <div key={d} className="font-bold text-center py-2 text-xs md:text-sm dark:text-snow-white dark:text-opacity-60 text-light-text-secondary hidden lg:block">
               {d}
             </div>
           ))}
@@ -118,7 +118,7 @@ export default function Calendar() {
               <div
                 key={i}
                 onClick={() => day && handleDateClick(day)}
-                className={`min-h-24 p-2 border rounded-lg cursor-pointer transition ${
+                className={`min-h-16 md:min-h-24 p-1 md:p-2 border rounded-lg cursor-pointer transition ${
                   day
                     ? `${isToday ? 'dark:bg-indigo-royal dark:bg-opacity-20 dark:border-indigo-royal dark:border-opacity-50 bg-indigo-royal bg-opacity-10 border-indigo-royal border-opacity-40' : 'dark:bg-white dark:bg-opacity-5 dark:border-white dark:border-opacity-10 dark:hover:bg-opacity-10 bg-light-surface-alt border-light-border-subtle hover:border-cyan-light'}`
                     : 'bg-transparent border-transparent'
@@ -126,13 +126,13 @@ export default function Calendar() {
               >
                 {day && (
                   <>
-                    <div className={`font-bold mb-1 ${isToday ? 'text-indigo-royal' : 'dark:text-snow-white text-light-text'}`}>{day.getDate()}</div>
-                    {dayBookings.slice(0, 2).map((b) => (
-                      <div key={b.id} className="text-xs dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30 p-1 rounded mb-1 truncate">
+                    <div className={`font-bold mb-1 text-sm md:text-base ${isToday ? 'text-indigo-royal' : 'dark:text-snow-white text-light-text'}`}>{day.getDate()}</div>
+                    {dayBookings.slice(0, 1).map((b) => (
+                      <div key={b.id} className="text-xs dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30 p-0.5 md:p-1 rounded mb-1 truncate hidden md:block">
                         {b.title}
                       </div>
                     ))}
-                    {dayBookings.length > 2 && <div className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary">+{dayBookings.length - 2}</div>}
+                    {dayBookings.length > 1 && <div className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary hidden md:block">+{dayBookings.length - 1}</div>}
                   </>
                 )}
               </div>
@@ -142,8 +142,8 @@ export default function Calendar() {
       </div>
 
       {showForm && (
-        <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-center justify-center z-50 px-4">
-          <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft max-w-md w-full">
+        <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0">
+          <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-md max-h-[85vh] overflow-y-auto">
             <h3 className="text-2xl font-bold dark:text-snow-white text-light-text mb-4">Créer une réservation</h3>
 
             {error && <div className="mb-4 p-3 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 rounded-lg">{error}</div>}

@@ -22,40 +22,40 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
         <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-indigo-royal dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-sm font-semibold">Réservations du jour</p>
-              <p className="text-4xl font-black text-indigo-royal mt-2">{bookings.length}</p>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Réservations du jour</p>
+              <p className="text-2xl md:text-4xl font-black text-indigo-royal mt-2">{bookings.length}</p>
             </div>
-            <span className="text-5xl opacity-20">📅</span>
+            <span className="text-3xl md:text-5xl opacity-20 flex-shrink-0">📅</span>
           </div>
         </div>
 
         <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-cyan-neon dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-sm font-semibold">Ressources occupées</p>
-              <p className="text-4xl font-black text-cyan-light mt-2">{occupiedCount}</p>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Ressources occupées</p>
+              <p className="text-2xl md:text-4xl font-black text-cyan-light mt-2">{occupiedCount}</p>
             </div>
-            <span className="text-5xl opacity-20">🔴</span>
+            <span className="text-3xl md:text-5xl opacity-20 flex-shrink-0">🔴</span>
           </div>
         </div>
 
         <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-rose-coral dark:border-opacity-20 dark:hover:border-opacity-40 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-sm font-semibold">Disponibles</p>
-              <p className="text-4xl font-black text-rose-coral mt-2">{resources.length - occupiedCount}</p>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Disponibles</p>
+              <p className="text-2xl md:text-4xl font-black text-rose-coral mt-2">{resources.length - occupiedCount}</p>
             </div>
-            <span className="text-5xl opacity-20">✅</span>
+            <span className="text-3xl md:text-5xl opacity-20 flex-shrink-0">✅</span>
           </div>
         </div>
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Today's Bookings */}
         <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle">
           <h3 className="text-xl font-bold dark:text-snow-white text-light-text mb-4">📅 Réservations du jour</h3>

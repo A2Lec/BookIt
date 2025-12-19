@@ -108,22 +108,22 @@ export default function Notifications() {
 
       {/* Liste des notifications */}
       {filteredNotifications.length === 0 ? (
-        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-12 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle text-center">
-          <p className="text-xl dark:text-snow-white dark:text-opacity-70 text-light-text mb-2">📭 Aucune notification</p>
+        <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-8 md:p-12 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle text-center">
+          <p className="text-lg md:text-xl dark:text-snow-white dark:text-opacity-70 text-light-text mb-2">📭 Aucune notification</p>
           <p className="dark:text-snow-white dark:text-opacity-50 text-light-text-secondary">Vous êtes à jour !</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4 pb-4">
           {filteredNotifications.map((notification) => (
             <div
               key={notification.id}
-              className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border-l-4 dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 dark:rounded-xl dark:transition p-4 rounded-xl border-l-4 border-light-border bg-light-surface shadow-subtle hover:shadow-soft transition ${getNotificationColor(notification.type)} ${
+              className={`dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border-l-4 dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 dark:rounded-xl dark:transition p-3 md:p-4 rounded-xl border-l-4 border-light-border bg-light-surface shadow-subtle hover:shadow-soft transition ${getNotificationColor(notification.type)} ${
                 !notification.isRead ? 'dark:ring-2 dark:ring-indigo-royal dark:ring-opacity-30 ring-2 ring-indigo-royal ring-opacity-20' : ''
               }`}
             >
-              <div className="flex justify-between items-start gap-4">
-                <div className="flex gap-3 flex-1 min-w-0">
-                  <span className="text-2xl flex-shrink-0">{getNotificationIcon(notification.type)}</span>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
+                <div className="flex gap-2 sm:gap-3 flex-1 min-w-0">
+                  <span className="text-xl md:text-2xl flex-shrink-0">{getNotificationIcon(notification.type)}</span>
                   <div className="flex-1 min-w-0">
                     <p className={`text-sm ${!notification.isRead ? 'dark:font-bold dark:text-snow-white font-bold text-light-text' : 'dark:text-snow-white dark:text-opacity-90 text-light-text text-opacity-90'}`}>
                       {notification.message}
@@ -133,18 +133,18 @@ export default function Notifications() {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-2 ml-4 flex-shrink-0">
+                <div className="flex flex-col gap-1 sm:flex-row sm:gap-2 sm:ml-4 flex-shrink-0 w-full sm:w-auto">
                   {!notification.isRead && (
                     <button
                       onClick={() => markAsRead(notification.id)}
-                      className="text-xs px-3 py-1 dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:hover:bg-opacity-30 dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30 rounded-lg hover:opacity-80 transition"
+                      className="text-xs px-2 md:px-3 py-1 dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:hover:bg-opacity-30 dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30 rounded-lg hover:opacity-80 transition whitespace-nowrap"
                     >
                       Marquer comme lu
                     </button>
                   )}
                   <button
                     onClick={() => deleteNotification(notification.id)}
-                    className="text-xs px-3 py-1 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:hover:bg-opacity-30 dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:opacity-80 transition"
+                    className="text-xs px-2 md:px-3 py-1 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:hover:bg-opacity-30 dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 rounded-lg hover:opacity-80 transition whitespace-nowrap"
                   >
                     Supprimer
                   </button>

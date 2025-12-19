@@ -23,27 +23,27 @@ export default function MyBookings() {
           {bookings.map((b) => {
             const resource = resources.find((r) => r.id === b.resourceId)
             return (
-              <div key={b.id} className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="font-bold text-xl dark:text-snow-white text-light-text">{b.title}</h3>
-                    <p className="text-cyan-light dark:text-cyan-neon mt-1">
-                      <span className="font-semibold">{resource?.name}</span>
+              <div key={b.id} className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 p-4 md:p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-lg md:text-xl dark:text-snow-white text-light-text truncate">{b.title}</h3>
+                    <p className="text-sm md:text-base text-cyan-light dark:text-cyan-neon mt-1">
+                      <span className="font-semibold truncate">{resource?.name}</span>
                     </p>
                   </div>
-                  <span className={`px-3 py-1 rounded-lg font-semibold text-sm ${b.status === 'CONFIRMED' ? 'dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30' : 'dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30'}`}>
+                  <span className={`flex-shrink-0 px-3 py-1 rounded-lg font-semibold text-xs md:text-sm whitespace-nowrap ${b.status === 'CONFIRMED' ? 'dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30' : 'dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30'}`}>
                     {b.status === 'CONFIRMED' ? '✓ Confirmée' : '⏳ En attente'}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div>
-                    <p className="text-xs dark:text-snow-white dark:text-opacity-60 text-light-text-secondary uppercase">Début</p>
-                    <p className="font-semibold dark:text-snow-white text-light-text font-mono">{new Date(b.startTime).toLocaleString('fr')}</p>
+                <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-6 text-xs md:text-sm">
+                  <div className="min-w-0">
+                    <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary uppercase text-xs">Début</p>
+                    <p className="font-semibold dark:text-snow-white text-light-text font-mono truncate">{new Date(b.startTime).toLocaleDateString('fr')} {new Date(b.startTime).toLocaleTimeString('fr', {hour: '2-digit', minute: '2-digit'})}</p>
                   </div>
-                  <div>
-                    <p className="text-xs dark:text-snow-white dark:text-opacity-60 text-light-text-secondary uppercase">Fin</p>
-                    <p className="font-semibold dark:text-snow-white text-light-text font-mono">{new Date(b.endTime).toLocaleString('fr')}</p>
+                  <div className="min-w-0">
+                    <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary uppercase text-xs">Fin</p>
+                    <p className="font-semibold dark:text-snow-white text-light-text font-mono truncate">{new Date(b.endTime).toLocaleDateString('fr')} {new Date(b.endTime).toLocaleTimeString('fr', {hour: '2-digit', minute: '2-digit'})}</p>
                   </div>
                 </div>
 
