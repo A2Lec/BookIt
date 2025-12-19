@@ -1,4 +1,5 @@
 import React from 'react'
+import { CheckCircle2, Clock, X } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { useBookingsStore } from '../store/bookingsStore'
 import { useResourcesStore } from '../store/resourcesStore'
@@ -31,8 +32,18 @@ export default function MyBookings() {
                       <span className="font-semibold truncate">{resource?.name}</span>
                     </p>
                   </div>
-                  <span className={`flex-shrink-0 px-3 py-1 rounded-lg font-semibold text-xs md:text-sm whitespace-nowrap ${b.status === 'CONFIRMED' ? 'dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30' : 'dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30'}`}>
-                    {b.status === 'CONFIRMED' ? '✓ Confirmée' : '⏳ En attente'}
+                  <span className={`flex-shrink-0 px-3 py-1 rounded-lg font-semibold text-xs md:text-sm whitespace-nowrap flex items-center gap-1 ${b.status === 'CONFIRMED' ? 'dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon dark:border dark:border-cyan-neon dark:border-opacity-30 bg-cyan-light bg-opacity-20 text-cyan-light border border-cyan-light border-opacity-30' : 'dark:bg-indigo-royal dark:bg-opacity-20 dark:text-indigo-royal dark:border dark:border-indigo-royal dark:border-opacity-30 bg-indigo-royal bg-opacity-20 text-indigo-royal border border-indigo-royal border-opacity-30'}`}>
+                    {b.status === 'CONFIRMED' ? (
+                      <>
+                        <CheckCircle2 className="w-3 h-3" />
+                        Confirmée
+                      </>
+                    ) : (
+                      <>
+                        <Clock className="w-3 h-3" />
+                        En attente
+                      </>
+                    )}
                   </span>
                 </div>
 
@@ -53,9 +64,10 @@ export default function MyBookings() {
                       removeBooking(b.id)
                     }
                   }}
-                  className="w-full dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:hover:bg-opacity-30 dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 px-4 py-3 rounded-xl hover:opacity-80 font-semibold transition"
+                  className="w-full dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:hover:bg-opacity-30 dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 px-4 py-3 rounded-xl hover:opacity-80 font-semibold transition flex items-center justify-center gap-2"
                 >
-                  ✗ Annuler
+                  <X className="w-4 h-4" />
+                  Annuler
                 </button>
               </div>
             )

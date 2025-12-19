@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Calendar, AlertCircle, CheckCircle2, Clock } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { useBookingsStore } from '../store/bookingsStore'
 import { useResourcesStore } from '../store/resourcesStore'
@@ -21,7 +22,7 @@ export default function Dashboard() {
     <div>
       <div className="mb-8">
         <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-2">
-          Bienvenue, {user?.name} 👋
+          Bienvenue, {user?.name}
         </h2>
         <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary">Gérez vos réservations et ressources</p>
       </div>
@@ -34,7 +35,7 @@ export default function Dashboard() {
               <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Réservations du jour</p>
               <p className="text-2xl md:text-4xl font-black text-indigo-royal mt-2">{bookings.length}</p>
             </div>
-            <span className="text-3xl md:text-5xl opacity-20 flex-shrink-0">📅</span>
+            <Calendar className="w-10 h-10 md:w-12 md:h-12 opacity-20 flex-shrink-0 text-indigo-royal" />
           </div>
         </div>
 
@@ -47,7 +48,7 @@ export default function Dashboard() {
               <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Ressources occupées</p>
               <p className="text-2xl md:text-4xl font-black text-rose-coral mt-2">{occupiedCount}</p>
             </div>
-            <span className="text-3xl md:text-5xl opacity-30 flex-shrink-0">🔴</span>
+            <AlertCircle className="w-10 h-10 md:w-12 md:h-12 opacity-30 flex-shrink-0 text-rose-coral" />
           </div>
         </button>
 
@@ -60,7 +61,7 @@ export default function Dashboard() {
               <p className="dark:text-snow-white dark:text-opacity-70 text-light-text-secondary text-xs md:text-sm font-semibold">Disponibles</p>
               <p className="text-2xl md:text-4xl font-black text-cyan-light mt-2">{resources.length - occupiedCount}</p>
             </div>
-            <span className="text-3xl md:text-5xl opacity-30 flex-shrink-0">✅</span>
+            <CheckCircle2 className="w-10 h-10 md:w-12 md:h-12 opacity-30 flex-shrink-0 text-cyan-light" />
           </div>
         </button>
       </div>
@@ -69,7 +70,10 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Today's Bookings */}
         <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle">
-          <h3 className="text-xl font-bold dark:text-snow-white text-light-text mb-4">📅 Réservations du jour</h3>
+          <h3 className="text-xl font-bold dark:text-snow-white text-light-text mb-4 flex items-center gap-2">
+            <Calendar className="w-5 h-5" />
+            Réservations du jour
+          </h3>
           {bookings.length > 0 ? (
             <ul className="space-y-3">
               {bookings.map((b) => {
@@ -92,7 +96,10 @@ export default function Dashboard() {
         </div>
 
         <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle">
-          <h3 className="text-xl font-bold dark:text-snow-white text-light-text mb-4">🎯 Mes réservations (7 prochains jours)</h3>
+          <h3 className="text-xl font-bold dark:text-snow-white text-light-text mb-4 flex items-center gap-2">
+            <AlertCircle className="w-5 h-5" />
+            Mes réservations (7 prochains jours)
+          </h3>
           {allBookings.length > 0 ? (
             <ul className="space-y-3">
               {allBookings.slice(0, 5).map((b) => {
@@ -141,7 +148,10 @@ export default function Dashboard() {
                           <div key={booking.id} className="dark:bg-rose-coral dark:bg-opacity-5 dark:border dark:border-rose-coral dark:border-opacity-30 bg-rose-coral bg-opacity-5 border border-rose-coral border-opacity-30 p-3 rounded-lg">
                             <div className="flex justify-between items-start mb-1">
                               <p className="font-semibold dark:text-snow-white text-light-text text-sm">{booking.title}</p>
-                              <span className="text-xs px-2 py-1 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral bg-rose-coral bg-opacity-20 text-rose-coral rounded-full">🔴 Confirmée</span>
+            <span className="text-xs px-2 py-1 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral bg-rose-coral bg-opacity-20 text-rose-coral rounded-full flex items-center gap-1">
+                              <AlertCircle className="w-3 h-3" />
+                              Confirmée
+                            </span>
                             </div>
                             <p className="text-xs dark:text-snow-white dark:text-opacity-70 text-light-text-secondary font-mono">
                               {new Date(booking.startTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })} - {new Date(booking.endTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })}
@@ -188,7 +198,10 @@ export default function Dashboard() {
                         <h4 className="font-bold dark:text-snow-white text-light-text">{resource.name}</h4>
                         <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary mt-1">{resource.description}</p>
                       </div>
-                      <span className="text-xs px-3 py-1 dark:bg-teal-soft dark:bg-opacity-20 dark:text-teal-soft bg-cyan-light bg-opacity-20 text-cyan-light rounded-full font-semibold flex-shrink-0 ml-3">✓ Libre</span>
+                      <span className="text-xs px-3 py-1 dark:bg-teal-soft dark:bg-opacity-20 dark:text-teal-soft bg-cyan-light bg-opacity-20 text-cyan-light rounded-full font-semibold flex-shrink-0 ml-3 flex items-center gap-1">
+                        <CheckCircle2 className="w-3 h-3" />
+                        Libre
+                      </span>
                     </div>
                   </div>
                 ))

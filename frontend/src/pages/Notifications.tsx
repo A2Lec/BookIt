@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { CheckCircle2, XCircle, Sparkles, Clock, Bell } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { mockNotifications } from '../lib/mockData'
 
@@ -23,15 +24,15 @@ export default function Notifications() {
   const getNotificationIcon = (type: NotificationType) => {
     switch (type) {
       case 'BOOKING_CONFIRMED':
-        return '✅'
+        return <CheckCircle2 className="w-5 h-5" />
       case 'BOOKING_CANCELLED':
-        return '❌'
+        return <XCircle className="w-5 h-5" />
       case 'RESOURCE_AVAILABLE':
-        return '✨'
+        return <Sparkles className="w-5 h-5" />
       case 'REMINDER':
-        return '⏰'
+        return <Clock className="w-5 h-5" />
       default:
-        return '📢'
+        return <Bell className="w-5 h-5" />
     }
   }
 
@@ -69,7 +70,10 @@ export default function Notifications() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">🔔 Notifications</h2>
+          <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent flex items-center gap-2">
+            <Bell className="w-10 h-10 text-cyan-neon" />
+            Notifications
+          </h2>
           <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-2">Restez informé des mises à jour</p>
         </div>
         {unreadCount > 0 && (
@@ -109,7 +113,8 @@ export default function Notifications() {
       {/* Liste des notifications */}
       {filteredNotifications.length === 0 ? (
         <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-8 md:p-12 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle text-center">
-          <p className="text-lg md:text-xl dark:text-snow-white dark:text-opacity-70 text-light-text mb-2">📭 Aucune notification</p>
+          <Bell className="w-12 h-12 mx-auto opacity-20 mb-4" />
+          <p className="text-lg md:text-xl dark:text-snow-white dark:text-opacity-70 text-light-text mb-2">Aucune notification</p>
           <p className="dark:text-snow-white dark:text-opacity-50 text-light-text-secondary">Vous êtes à jour !</p>
         </div>
       ) : (
@@ -123,7 +128,9 @@ export default function Notifications() {
             >
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
                 <div className="flex gap-2 sm:gap-3 flex-1 min-w-0">
-                  <span className="text-xl md:text-2xl flex-shrink-0">{getNotificationIcon(notification.type)}</span>
+                  <div className="text-cyan-light dark:text-cyan-neon flex-shrink-0 mt-0.5">
+                    {getNotificationIcon(notification.type)}
+                  </div>
                   <div className="flex-1 min-w-0">
                     <p className={`text-sm ${!notification.isRead ? 'dark:font-bold dark:text-snow-white font-bold text-light-text' : 'dark:text-snow-white dark:text-opacity-90 text-light-text text-opacity-90'}`}>
                       {notification.message}

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Link, Navigate } from 'react-router-dom'
+import { Calendar, Settings, Grid3x3, Clock, Sun, Moon, LogOut, Zap } from 'lucide-react'
 import { useAuthStore } from './store/authStore'
 import { useThemeStore } from './store/themeStore'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Resources from './pages/Resources'
-import Calendar from './pages/Calendar'
+import CalendarPage from './pages/Calendar'
 import MyBookings from './pages/MyBookings'
 import Notifications from './pages/Notifications'
 
@@ -48,8 +49,9 @@ export default function App() {
     <div className="min-h-screen dark:bg-midnight dark:text-snow-white bg-light-bg text-light-text flex flex-col md:flex-row transition-colors">
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex md:w-64 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-r dark:border-opacity-10 flex-col p-6">
-        <h1 className="text-2xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-8">
-          📅 Bookly
+        <h1 className="text-2xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-8 flex items-center gap-2">
+          <Calendar className="w-6 h-6 text-cyan-neon" />
+          Bookly
         </h1>
 
         <nav className="space-y-4 flex-1">
@@ -57,25 +59,29 @@ export default function App() {
             to="/"
             className="flex items-center gap-3 px-4 py-3 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors font-semibold"
           >
-            📊 Dashboard
+            <Grid3x3 className="w-5 h-5" />
+            Dashboard
           </Link>
           <Link
             to="/resources"
             className="flex items-center gap-3 px-4 py-3 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors font-semibold"
           >
-            🛠️ Ressources
+            <Settings className="w-5 h-5" />
+            Ressources
           </Link>
           <Link
             to="/calendar"
             className="flex items-center gap-3 px-4 py-3 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors font-semibold"
           >
-            📅 Calendrier
+            <Calendar className="w-5 h-5" />
+            Calendrier
           </Link>
           <Link
             to="/my-bookings"
             className="flex items-center gap-3 px-4 py-3 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors font-semibold"
           >
-            📝 Réservations
+            <Clock className="w-5 h-5" />
+            Réservations
           </Link>
           <Link
             to="/notifications"
@@ -106,15 +112,16 @@ export default function App() {
       <main className="flex-1 md:pb-0 pb-24">
         {/* Mobile Header */}
         <header className="md:hidden sticky top-0 z-40 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-b dark:border-opacity-10 px-4 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">
-            📅 Bookly
+          <h1 className="text-xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-cyan-neon" />
+            Bookly
           </h1>
           <button
             onClick={toggleTheme}
             className="px-3 py-1 dark:text-indigo-royal text-indigo-royal hover:opacity-70 transition-opacity"
             title="Changer le thème"
           >
-            {theme === 'dark' ? '☀️' : '🌙'}
+            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
         </header>
 
@@ -123,7 +130,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<ProtectedRoute element={<Dashboard />} />} />
             <Route path="/resources" element={<ProtectedRoute element={<Resources />} />} />
-            <Route path="/calendar" element={<ProtectedRoute element={<Calendar />} />} />
+            <Route path="/calendar" element={<ProtectedRoute element={<CalendarPage />} />} />
             <Route path="/my-bookings" element={<ProtectedRoute element={<MyBookings />} />} />
             <Route path="/notifications" element={<ProtectedRoute element={<Notifications />} />} />
           </Routes>
@@ -131,13 +138,13 @@ export default function App() {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-t dark:border-opacity-10 flex justify-around items-center px-4 py-3 z-50">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-t dark:border-opacity-10 flex justify-around items-center px-2 py-2 z-50">
         <Link
           to="/"
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
           title="Dashboard"
         >
-          <span className="text-xl">📊</span>
+          <Grid3x3 className="w-5 h-5" />
           <span className="text-xs">Dashboard</span>
         </Link>
         <Link
@@ -145,7 +152,7 @@ export default function App() {
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
           title="Ressources"
         >
-          <span className="text-xl">🛠️</span>
+          <Settings className="w-5 h-5" />
           <span className="text-xs">Ressources</span>
         </Link>
         <Link
@@ -153,7 +160,7 @@ export default function App() {
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
           title="Calendrier"
         >
-          <span className="text-xl">📅</span>
+          <Calendar className="w-5 h-5" />
           <span className="text-xs">Calendrier</span>
         </Link>
         <Link
@@ -161,7 +168,7 @@ export default function App() {
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
           title="Réservations"
         >
-          <span className="text-xl">📝</span>
+          <Clock className="w-5 h-5" />
           <span className="text-xs">Réservations</span>
         </Link>
         <Link
@@ -169,7 +176,7 @@ export default function App() {
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
           title="Notifications"
         >
-          <span className="text-xl">🔔</span>
+          <Zap className="w-5 h-5" />
           <span className="text-xs">Notifications</span>
         </Link>
       </nav>

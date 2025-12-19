@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { CheckCircle2, AlertTriangle, AlertCircle, Plus, X, Building2, Wrench, Car, Briefcase, Users, MapPin } from 'lucide-react'
 import { useResourcesStore } from '../store/resourcesStore'
 
 export default function Resources() {
@@ -26,11 +27,11 @@ export default function Resources() {
     setShowForm(false)
   }
 
-  const categoryLabels: Record<string, string> = {
-    ROOM: '🏢 Salle',
-    EQUIPMENT: '🔧 Équipement',
-    VEHICLE: '🚗 Véhicule',
-    WORKSTATION: '💼 Poste de travail',
+  const categoryLabels: Record<string, { label: string; icon: React.ReactNode }> = {
+    ROOM: { label: 'Salle', icon: <Building2 className="w-4 h-4" /> },
+    EQUIPMENT: { label: 'Équipement', icon: <Wrench className="w-4 h-4" /> },
+    VEHICLE: { label: 'Véhicule', icon: <Car className="w-4 h-4" /> },
+    WORKSTATION: { label: 'Poste de travail', icon: <Briefcase className="w-4 h-4" /> },
   }
 
   const statusColors: Record<string, string> = {
@@ -48,9 +49,19 @@ export default function Resources() {
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className={`px-6 py-3 rounded-xl font-semibold transition ${showForm ? 'dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300' : 'dark:bg-indigo-royal dark:text-snow-white dark:hover:bg-opacity-90 bg-indigo-royal text-white hover:opacity-90'}`}
+          className={`px-6 py-3 rounded-xl font-semibold transition flex items-center gap-2 ${showForm ? 'dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300' : 'dark:bg-indigo-royal dark:text-snow-white dark:hover:bg-opacity-90 bg-indigo-royal text-white hover:opacity-90'}`}
         >
-          {showForm ? '✖ Annuler' : '➕ Ajouter'}
+          {showForm ? (
+            <>
+              <X className="w-4 h-4" />
+              Annuler
+            </>
+          ) : (
+            <>
+              <Plus className="w-4 h-4" />
+              Ajouter
+            </>
+          )}
         </button>
       </div>
 
@@ -70,10 +81,10 @@ export default function Resources() {
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
             >
-              <option value="ROOM" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">🏢 Salle</option>
-              <option value="EQUIPMENT" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">🔧 Équipement</option>
-              <option value="VEHICLE" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">🚗 Véhicule</option>
-              <option value="WORKSTATION" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">💼 Poste de travail</option>
+              <option value="ROOM" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">Salle</option>
+              <option value="EQUIPMENT" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">Équipement</option>
+              <option value="VEHICLE" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">Véhicule</option>
+              <option value="WORKSTATION" className="dark:bg-midnight dark:text-snow-white bg-light-surface text-light-text">Poste de travail</option>
             </select>
             <button type="submit" className="w-full dark:bg-cyan-neon dark:text-midnight dark:hover:bg-opacity-90 bg-indigo-royal text-white hover:opacity-90 py-3 rounded-xl font-semibold transition">
               Créer
@@ -87,14 +98,32 @@ export default function Resources() {
           <div key={r.id} className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 dark:hover:border-opacity-30 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle hover:shadow-soft hover:border-cyan-light transition">
             <div className="flex justify-between items-start mb-3">
               <h3 className="font-bold text-lg dark:text-snow-white text-light-text">{r.name}</h3>
-              <span className={`px-3 py-1 rounded-lg text-xs font-semibold ${statusColors[r.status]}`}>
-                {r.status === 'AVAILABLE' ? '✓ Libre' : r.status === 'MAINTENANCE' ? '⚙ Maintenance' : '✗ Indisponible'}
+              <span className={`px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 ${statusColors[r.status]}`}>
+                {r.status === 'AVAILABLE' ? (
+                  <>
+                    <CheckCircle2 className="w-3 h-3" />
+                    Libre
+                  </>
+                ) : r.status === 'MAINTENANCE' ? (
+                  <>
+                    <AlertTriangle className="w-3 h-3" />
+                    Maintenance
+                  </>
+                ) : (
+                  <>
+                    <AlertCircle className="w-3 h-3" />
+                    Indisponible
+                  </>
+                )}
               </span>
             </div>
-            <p className="text-sm text-cyan-light dark:text-cyan-neon mb-2">{categoryLabels[r.category]}</p>
+            <p className="text-sm text-cyan-light dark:text-cyan-neon mb-2 flex items-center gap-1">
+              {categoryLabels[r.category].icon}
+              {categoryLabels[r.category].label}
+            </p>
             {r.description && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary mb-2">{r.description}</p>}
-            {r.capacity && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary">👥 Capacité: {r.capacity} personnes</p>}
-            {r.location && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary">📍 {r.location}</p>}
+            {r.capacity && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary flex items-center gap-1"><Users className="w-3 h-3" />Capacité: {r.capacity} personnes</p>}
+            {r.location && <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary flex items-center gap-1"><MapPin className="w-3 h-3" />{r.location}</p>}
           </div>
         ))}
       </div>

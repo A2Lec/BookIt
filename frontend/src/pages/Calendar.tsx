@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Calendar, Clock, CheckCircle2, AlertCircle } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { useBookingsStore } from '../store/bookingsStore'
 import { useResourcesStore } from '../store/resourcesStore'
@@ -111,7 +112,10 @@ export default function Calendar() {
   return (
     <div>
       <div className="mb-8">
-        <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent">Calendrier 📅</h2>
+        <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent flex items-center gap-3">
+          <Calendar className="w-10 h-10 text-cyan-neon" />
+          Calendrier
+        </h2>
         <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-2">Sélectionnez un jour pour créer une réservation</p>
       </div>
 
@@ -150,7 +154,7 @@ export default function Calendar() {
                 onClick={() => day && handleDateClick(day)}
                 className={`min-h-16 md:min-h-24 p-1 md:p-2 border rounded-lg cursor-pointer transition ${
                   day
-                    ? `${isSelected ? 'dark:bg-cyan-neon dark:bg-opacity-30 dark:border-cyan-neon dark:border-opacity-50 bg-cyan-light bg-opacity-30 border-cyan-light border-opacity-50 ring-2 dark:ring-cyan-neon ring-cyan-light' : isToday ? 'dark:bg-indigo-royal dark:bg-opacity-20 dark:border-indigo-royal dark:border-opacity-50 bg-indigo-royal bg-opacity-10 border-indigo-royal border-opacity-40' : 'dark:bg-white dark:bg-opacity-5 dark:border-white dark:border-opacity-10 dark:hover:bg-opacity-10 bg-light-surface-alt border-light-border-subtle hover:border-cyan-light'}`
+                    ? isSelected ? 'dark:bg-cyan-neon dark:bg-opacity-30 dark:border-cyan-neon dark:border-opacity-50 bg-cyan-light bg-opacity-30 border-cyan-light border-opacity-50 ring-2 dark:ring-cyan-neon ring-cyan-light' : isToday ? 'dark:bg-indigo-royal dark:bg-opacity-20 dark:border-indigo-royal dark:border-opacity-50 bg-indigo-royal bg-opacity-10 border-indigo-royal border-opacity-40' : 'dark:bg-white dark:bg-opacity-5 dark:border-white dark:border-opacity-10 dark:hover:bg-opacity-10 bg-light-surface-alt border-light-border-subtle hover:border-cyan-light'
                     : 'bg-transparent border-transparent'
                 }`}
               >
@@ -204,7 +208,19 @@ export default function Calendar() {
                     <div key={booking.id} className="dark:bg-white dark:bg-opacity-5 dark:border dark:border-white dark:border-opacity-10 bg-light-surface-alt border border-light-border-subtle p-4 rounded-xl">
                       <div className="flex justify-between items-start mb-2">
                         <h4 className="font-bold dark:text-snow-white text-light-text">{booking.title}</h4>
-                        <span className="text-xs px-2 py-1 dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon bg-cyan-light bg-opacity-20 text-cyan-light rounded-full">{booking.status === 'CONFIRMED' ? '✓ Confirmée' : '⏳ En attente'}</span>
+                        <span className="text-xs px-2 py-1 dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon bg-cyan-light bg-opacity-20 text-cyan-light rounded-full flex items-center gap-1">
+                          {booking.status === 'CONFIRMED' ? (
+                            <>
+                              <CheckCircle2 className="w-3 h-3" />
+                              Confirmée
+                            </>
+                          ) : (
+                            <>
+                              <Clock className="w-3 h-3" />
+                              En attente
+                            </>
+                          )}
+                        </span>
                       </div>
                       <p className="text-sm text-cyan-light dark:text-cyan-neon font-semibold mb-2">{resource?.name}</p>
                       <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text font-mono">
@@ -235,7 +251,13 @@ export default function Calendar() {
         <div className="fixed inset-0 dark:bg-black dark:bg-opacity-70 bg-black bg-opacity-30 dark:backdrop-blur-sm flex items-end md:items-center justify-center z-50 px-4 pb-24 md:pb-0">
           <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 md:p-8 rounded-2xl bg-light-surface border border-light-border-subtle shadow-soft w-full md:max-w-md max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold dark:text-snow-white text-light-text">Nouvelle réservation</h3>
+              <div>
+                <h3 className="text-2xl font-bold dark:text-snow-white text-light-text">Nouvelle réservation</h3>
+                <p className="text-xs dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-1 flex items-center gap-1">
+                  <Calendar className="w-3 h-3" />
+                  {selectedDate.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
+                </p>
+              </div>
               <button
                 onClick={() => setShowForm(false)}
                 className="text-2xl dark:text-snow-white text-light-text hover:opacity-70 transition"
