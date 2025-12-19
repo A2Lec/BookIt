@@ -134,14 +134,14 @@ export default function Dashboard() {
                 occupiedResources.map((resource) => {
                   const resourceBookings = bookings.filter((b) => b.resourceId === resource?.id)
                   return (
-                    <div key={resource?.id} className="dark:bg-white dark:bg-opacity-5 dark:border dark:border-white dark:border-opacity-10 bg-light-surface-alt border border-light-border-subtle p-4 rounded-xl">
+                    <div key={resource?.id} className="dark:bg-cyan-neon dark:bg-opacity-5 dark:border dark:border-cyan-neon dark:border-opacity-20 bg-cyan-light bg-opacity-5 border border-cyan-light border-opacity-30 p-4 rounded-xl">
                       <h4 className="font-bold dark:text-snow-white text-light-text mb-3">{resource?.name}</h4>
                       <div className="space-y-3">
                         {resourceBookings.map((booking) => (
-                          <div key={booking.id} className="dark:bg-white dark:bg-opacity-3 dark:border dark:border-cyan-neon dark:border-opacity-20 bg-light-surface border border-cyan-light border-opacity-20 p-3 rounded-lg">
+                          <div key={booking.id} className="dark:bg-rose-coral dark:bg-opacity-5 dark:border dark:border-rose-coral dark:border-opacity-30 bg-rose-coral bg-opacity-5 border border-rose-coral border-opacity-30 p-3 rounded-lg">
                             <div className="flex justify-between items-start mb-1">
                               <p className="font-semibold dark:text-snow-white text-light-text text-sm">{booking.title}</p>
-                              <span className="text-xs px-2 py-1 dark:bg-cyan-neon dark:bg-opacity-20 dark:text-cyan-neon bg-cyan-light bg-opacity-20 text-cyan-light rounded-full">✓ Confirmée</span>
+                              <span className="text-xs px-2 py-1 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral bg-rose-coral bg-opacity-20 text-rose-coral rounded-full">🔴 Confirmée</span>
                             </div>
                             <p className="text-xs dark:text-snow-white dark:text-opacity-70 text-light-text-secondary font-mono">
                               {new Date(booking.startTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })} - {new Date(booking.endTime).toLocaleTimeString('fr', { hour: '2-digit', minute: '2-digit' })}
@@ -182,13 +182,13 @@ export default function Dashboard() {
             <div className="space-y-3">
               {availableResources.length > 0 ? (
                 availableResources.map((resource) => (
-                  <div key={resource.id} className="dark:bg-white dark:bg-opacity-5 dark:border dark:border-white dark:border-opacity-10 bg-light-surface-alt border border-light-border-subtle p-4 rounded-xl">
+                  <div key={resource.id} className="dark:bg-teal-soft dark:bg-opacity-5 dark:border dark:border-teal-soft dark:border-opacity-20 bg-cyan-light bg-opacity-5 border border-cyan-light border-opacity-30 p-4 rounded-xl">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <h4 className="font-bold dark:text-snow-white text-light-text">{resource.name}</h4>
                         <p className="text-sm dark:text-snow-white dark:text-opacity-70 text-light-text-secondary mt-1">{resource.description}</p>
                       </div>
-                      <span className="text-xs px-3 py-1 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral bg-rose-coral bg-opacity-20 text-rose-coral rounded-full font-semibold flex-shrink-0 ml-3">Libre</span>
+                      <span className="text-xs px-3 py-1 dark:bg-teal-soft dark:bg-opacity-20 dark:text-teal-soft bg-cyan-light bg-opacity-20 text-cyan-light rounded-full font-semibold flex-shrink-0 ml-3">✓ Libre</span>
                     </div>
                   </div>
                 ))
