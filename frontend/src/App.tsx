@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Link, Navigate } from 'react-router-dom'
-import { Calendar, Settings, Grid3x3, Clock, Sun, Moon, LogOut, Zap } from 'lucide-react'
+import { Calendar as CalendarIcon, Settings, Grid3x3, Clock, Sun, Moon, LogOut, Zap, Bell } from 'lucide-react'
 import { useAuthStore } from './store/authStore'
 import { useThemeStore } from './store/themeStore'
 import Login from './pages/Login'
@@ -50,7 +50,7 @@ export default function App() {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex md:w-64 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-r dark:border-opacity-10 flex-col p-6">
         <h1 className="text-2xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-8 flex items-center gap-2">
-          <Calendar className="w-6 h-6 text-cyan-neon" />
+          <CalendarIcon className="w-6 h-6 text-cyan-neon" />
           Bookly
         </h1>
 
@@ -73,7 +73,7 @@ export default function App() {
             to="/calendar"
             className="flex items-center gap-3 px-4 py-3 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors font-semibold"
           >
-            <Calendar className="w-5 h-5" />
+            <CalendarIcon className="w-5 h-5" />
             Calendrier
           </Link>
           <Link
@@ -87,7 +87,7 @@ export default function App() {
             to="/notifications"
             className="flex items-center gap-3 px-4 py-3 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors font-semibold"
           >
-            🔔 Notifications
+            <Bell className="w-5 h-5" /> Notifications
           </Link>
         </nav>
 
@@ -97,13 +97,13 @@ export default function App() {
             onClick={toggleTheme}
             className="w-full px-4 py-2 dark:bg-indigo-royal dark:bg-opacity-20 bg-light-border text-indigo-royal rounded-lg hover:dark:bg-opacity-30 hover:bg-light-border hover:opacity-80 transition-colors font-semibold flex items-center justify-center gap-2"
           >
-            {theme === 'dark' ? '☀️ Clair' : '🌙 Sombre'}
+            {theme === 'dark' ? <><Sun className="w-5 h-5" /> Clair</> : <><Moon className="w-5 h-5" /> Sombre</>}
           </button>
           <button
             onClick={handleLogout}
-            className="w-full px-4 py-2 dark:bg-rose-coral bg-rose-coral dark:hover:bg-opacity-90 hover:opacity-90 text-white rounded-lg transition-colors font-semibold"
+            className="w-full px-4 py-2 dark:bg-rose-coral bg-rose-coral dark:hover:bg-opacity-90 hover:opacity-90 text-white rounded-lg transition-colors font-semibold flex items-center justify-center gap-2"
           >
-            🚪 Déconnexion
+            <LogOut className="w-5 h-5" /> Déconnexion
           </button>
         </div>
       </aside>
@@ -113,7 +113,7 @@ export default function App() {
         {/* Mobile Header */}
         <header className="md:hidden sticky top-0 z-40 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-b dark:border-opacity-10 px-4 py-4 flex justify-between items-center">
           <h1 className="text-xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-cyan-neon" />
+            <CalendarIcon className="w-5 h-5 text-cyan-neon" />
             Bookly
           </h1>
           <button
@@ -160,7 +160,7 @@ export default function App() {
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
           title="Calendrier"
         >
-          <Calendar className="w-5 h-5" />
+          <CalendarIcon className="w-5 h-5" />
           <span className="text-xs">Calendrier</span>
         </Link>
         <Link
@@ -176,7 +176,7 @@ export default function App() {
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
           title="Notifications"
         >
-          <Zap className="w-5 h-5" />
+          <Bell className="w-5 h-5" />
           <span className="text-xs">Notifications</span>
         </Link>
       </nav>

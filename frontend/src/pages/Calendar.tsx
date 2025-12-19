@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Calendar, Clock, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Calendar as CalendarIcon, Clock, CheckCircle2, AlertCircle } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
 import { useBookingsStore } from '../store/bookingsStore'
 import { useResourcesStore } from '../store/resourcesStore'
@@ -113,7 +113,7 @@ export default function Calendar() {
     <div>
       <div className="mb-8">
         <h2 className="text-4xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent flex items-center gap-3">
-          <Calendar className="w-10 h-10 text-cyan-neon" />
+          <CalendarIcon className="w-10 h-10 text-cyan-neon" />
           Calendrier
         </h2>
         <p className="dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-2">Sélectionnez un jour pour créer une réservation</p>
@@ -254,7 +254,7 @@ export default function Calendar() {
               <div>
                 <h3 className="text-2xl font-bold dark:text-snow-white text-light-text">Nouvelle réservation</h3>
                 <p className="text-xs dark:text-snow-white dark:text-opacity-60 text-light-text-secondary mt-1 flex items-center gap-1">
-                  <Calendar className="w-3 h-3" />
+                  <CalendarIcon className="w-3 h-3" />
                   {selectedDate.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
                 </p>
               </div>
