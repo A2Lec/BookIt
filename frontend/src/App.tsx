@@ -157,10 +157,10 @@ export default function App() {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className={`md:hidden fixed bottom-0 left-0 right-0 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-t dark:border-opacity-10 flex justify-around items-center px-2 py-2 z-50 transition-transform duration-300 ${showFooter ? 'translate-y-0' : 'translate-y-full'}`}>
+      <nav className={`md:hidden fixed bottom-0 left-0 right-0 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-t dark:border-opacity-10 overflow-x-auto overflow-y-hidden flex items-center px-2 py-2 z-50 transition-transform duration-300 ${showFooter ? 'translate-y-0' : 'translate-y-full'}`} style={{ scrollBehavior: 'smooth' }}>
         <Link
           to="/"
-          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
+          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors flex-shrink-0"
           title="Dashboard"
         >
           <Grid3x3 className="w-5 h-5" />
@@ -168,7 +168,7 @@ export default function App() {
         </Link>
         <Link
           to="/resources"
-          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
+          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors flex-shrink-0"
           title="Ressources"
         >
           <Settings className="w-5 h-5" />
@@ -176,7 +176,7 @@ export default function App() {
         </Link>
         <Link
           to="/calendar"
-          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
+          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors flex-shrink-0"
           title="Calendrier"
         >
           <CalendarIcon className="w-5 h-5" />
@@ -184,7 +184,7 @@ export default function App() {
         </Link>
         <Link
           to="/my-bookings"
-          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
+          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors flex-shrink-0"
           title="Réservations"
         >
           <Clock className="w-5 h-5" />
@@ -192,7 +192,7 @@ export default function App() {
         </Link>
         <Link
           to="/notifications"
-          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
+          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors flex-shrink-0"
           title="Notifications"
         >
           <Bell className="w-5 h-5" />
@@ -200,7 +200,7 @@ export default function App() {
         </Link>
         <button
           onClick={handleLogout}
-          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:text-rose-coral text-rose-coral dark:hover:bg-rose-coral dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
+          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:text-rose-coral text-rose-coral dark:hover:bg-rose-coral dark:hover:bg-opacity-20 hover:bg-light-border transition-colors flex-shrink-0"
           title="Déconnexion"
         >
           <LogOut className="w-5 h-5" />
