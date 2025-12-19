@@ -120,14 +120,14 @@ export default function Calendar() {
       </div>
 
       <div className="dark:glass-card dark:bg-dark-grey dark:bg-opacity-20 dark:border dark:border-white dark:border-opacity-10 p-6 rounded-2xl bg-light-surface border border-light-border-subtle shadow-subtle mb-8">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col md:flex-row justify-center md:justify-between items-center gap-4 mb-6">
           <button
             onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))}
             className="px-4 py-2 dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 bg-light-border text-light-text hover:opacity-80 rounded-lg font-semibold transition"
           >
             ← Précédent
           </button>
-          <h3 className="text-2xl font-bold dark:text-snow-white text-light-text capitalize">{monthName}</h3>
+          <h3 className="text-2xl font-bold dark:text-snow-white text-light-text capitalize whitespace-nowrap">{monthName}</h3>
           <button
             onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))}
             className="px-4 py-2 dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 bg-light-border text-light-text hover:opacity-80 rounded-lg font-semibold transition"
@@ -167,6 +167,11 @@ export default function Calendar() {
                       </div>
                     ))}
                     {dBookings.length > 1 && <div className="text-xs dark:text-snow-white dark:text-opacity-50 text-light-text-secondary hidden md:block">+{dBookings.length - 1}</div>}
+                    {dBookings.length > 0 && <div className="md:hidden flex gap-1 mt-1">
+                      {dBookings.map((_, i) => (
+                        <div key={i} className="w-1.5 h-1.5 rounded-full dark:bg-cyan-neon bg-cyan-light"></div>
+                      ))}
+                    </div>}
                   </>
                 )}
               </div>
