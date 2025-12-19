@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route, Link, Navigate } from 'react-router-dom'
 import { Calendar as CalendarIcon, Settings, Grid3x3, Clock, Sun, Moon, LogOut, Zap, Bell } from 'lucide-react'
 import { useAuthStore } from './store/authStore'
@@ -21,6 +21,9 @@ export default function App() {
   const logout = useAuthStore((state) => state.logout)
   const theme = useThemeStore((state) => state.theme)
   const toggleTheme = useThemeStore((state) => state.toggleTheme)
+  
+  const [showFooter, setShowFooter] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
 
   // Apply theme to document
   useEffect(() => {
@@ -30,6 +33,22 @@ export default function App() {
       document.documentElement.classList.remove('dark')
     }
   }, [theme])
+
+  // Handle scroll for mobile footer
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowFooter(false)
+      } else {
+        setShowFooter(true)
+      }
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   const handleLogout = () => {
     logout()
@@ -138,7 +157,7 @@ export default function App() {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-t dark:border-opacity-10 flex justify-around items-center px-2 py-2 z-50">
+      <nav className={`md:hidden fixed bottom-0 left-0 right-0 dark:bg-dark-grey bg-light-surface dark:border-white border-light-border border-t dark:border-opacity-10 flex justify-around items-center px-2 py-2 z-50 transition-transform duration-300 ${showFooter ? 'translate-y-0' : 'translate-y-full'}`}>
         <Link
           to="/"
           className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:hover:bg-indigo-royal dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
@@ -179,6 +198,14 @@ export default function App() {
           <Bell className="w-5 h-5" />
           <span className="text-xs">Notifications</span>
         </Link>
+        <button
+          onClick={handleLogout}
+          className="flex flex-col items-center gap-1 px-3 py-2 rounded-lg dark:text-rose-coral text-rose-coral dark:hover:bg-rose-coral dark:hover:bg-opacity-20 hover:bg-light-border transition-colors"
+          title="Déconnexion"
+        >
+          <LogOut className="w-5 h-5" />
+          <span className="text-xs">Déconnexion</span>
+        </button>
       </nav>
     </div>
   )
