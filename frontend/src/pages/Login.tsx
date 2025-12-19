@@ -60,27 +60,27 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="glass-card p-8 rounded-2xl border border-white border-opacity-10 w-full max-w-md">
-        <h1 className="text-3xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-2 text-center">BookIt</h1>
-        <p className="text-center text-snow-white text-opacity-60 mb-8">Plateforme de réservation intelligente</p>
+    <div className="min-h-screen dark:bg-midnight bg-light-bg flex items-center justify-center px-4">
+      <div className="dark:glass-card p-8 rounded-2xl dark:border dark:border-white dark:border-opacity-10 dark:bg-dark-grey dark:bg-opacity-20 bg-light-surface border border-light-border w-full max-w-md">
+        <h1 className="text-3xl font-black bg-gradient-to-r from-indigo-royal to-cyan-neon bg-clip-text text-transparent mb-2 text-center">Bookly</h1>
+        <p className="text-center dark:text-snow-white dark:text-opacity-60 text-light-text text-opacity-70 mb-8">Plateforme de réservation intelligente</p>
 
         <div className="flex gap-3 mb-6">
           <button
             onClick={() => setTab('login')}
-            className={`flex-1 py-3 rounded-xl font-semibold transition ${tab === 'login' ? 'bg-indigo-royal text-snow-white' : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20'}`}
+            className={`flex-1 py-3 rounded-xl font-semibold transition ${tab === 'login' ? 'dark:bg-indigo-royal dark:text-snow-white bg-indigo-royal text-white' : 'dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 bg-light-border text-light-text hover:opacity-80'}`}
           >
             Connexion
           </button>
           <button
             onClick={() => setTab('register')}
-            className={`flex-1 py-3 rounded-xl font-semibold transition ${tab === 'register' ? 'bg-indigo-royal text-snow-white' : 'bg-white bg-opacity-10 text-snow-white hover:bg-opacity-20'}`}
+            className={`flex-1 py-3 rounded-xl font-semibold transition ${tab === 'register' ? 'dark:bg-indigo-royal dark:text-snow-white bg-indigo-royal text-white' : 'dark:bg-white dark:bg-opacity-10 dark:text-snow-white dark:hover:bg-opacity-20 bg-light-border text-light-text hover:opacity-80'}`}
           >
             Inscription
           </button>
         </div>
 
-        {error && <div className="mb-4 p-3 bg-rose-coral bg-opacity-20 text-rose-coral rounded-xl border border-rose-coral border-opacity-30">{error}</div>}
+        {error && <div className="mb-4 p-3 dark:bg-rose-coral dark:bg-opacity-20 dark:text-rose-coral dark:border dark:border-rose-coral dark:border-opacity-30 bg-red-100 text-red-700 border border-red-300 rounded-xl">{error}</div>}
 
         {tab === 'login' && (
           <form onSubmit={handleLogin} className="space-y-4">

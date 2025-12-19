@@ -1,5 +1,6 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -9,6 +10,11 @@ module.exports = {
         'cyan-neon': '#06B6D4',
         'snow-white': '#F9FAFB',
         'rose-coral': '#F43F5E',
+        // Light theme colors
+        'light-bg': '#FFFFFF',
+        'light-surface': '#F3F4F6',
+        'light-text': '#1F2937',
+        'light-border': '#E5E7EB',
       },
       fontFamily: {
         'sans': ['Plus Jakarta Sans', 'Sora', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -18,3 +24,4 @@ module.exports = {
   },
   plugins: [],
 }
+
